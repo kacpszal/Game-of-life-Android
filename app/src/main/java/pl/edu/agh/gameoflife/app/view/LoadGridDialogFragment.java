@@ -1,0 +1,121 @@
+package pl.edu.agh.gameoflife.app.view;
+
+import android.app.DialogFragment;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import org.androidannotations.annotations.EFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.edu.agh.gameoflife.R;
+import pl.edu.agh.gameoflife.game.manager.GameManager;
+import pl.edu.agh.gameoflife.persistence.GridDao;
+import pl.edu.agh.gameoflife.persistence.GridDaoRepository;
+import pl.edu.agh.gameoflife.persistence.GridDaoToGrid;
+
+@EFragment
+public class LoadGridDialogFragment extends DialogFragment implements AdapterView.OnItemClickListener {
+
+    GameManager gameManager;
+    ListView gridListView;
+    GridDao focusedGrid;
+
+    List<GridDao> gridsLoadedFromDatabase = new ArrayList<>();
+
+    Button deleteGridButton;
+    Button loadGridButton;
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        return setViews(inflater);
+    }
+
+    private View setViews(LayoutInflater inflater) {
+        View view = inflater.inflate(R.layout.load_grid_dialog, null, false);
+        gridListView = (ListView) view.findViewById(R.id.listOfGrids);
+
+        deleteGridButton = (Button) view.findViewById(R.id.delete_button);
+        loadGridButton = (Button) view.findViewById(R.id.load_button);
+
+        return view;
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        updateGridListView();
+
+        deleteGridButton.setOnClickListener(getDeleteListener());
+        loadGridButton.setOnClickListener(getLoadGridListener());
+    }
+
+    private void updateGridListView() {
+        gridsLoadedFromDatabase = GridDaoRepository.getGrids(getActivity().getApplicationContext());
+
+        List<String> gridCreationDates = new ArrayList<>();
+        for (GridDao grid : gridsLoadedFromDatabase) {
+            gridCreationDates.add(grid.getDate().toString());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                R.layout.grid_item, R.id.grid_id, gridCreationDates);
+
+        gridListView.setAdapter(adapter);
+        gridListView.setOnItemClickListener(this);
+    }
+
+    private View.OnClickListener getDeleteListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (focusedGrid != null) {
+                    GridDaoRepository.delete(focusedGrid, getActivity().getApplicationContext());
+                    updateGridListView();
+                }
+            }
+        };
+    }
+
+    private View.OnClickListener getLoadGridListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (focusedGrid != null) {
+                    gameManager.getAutomaton().fillFromGrid(GridDaoToGrid.parse(focusedGrid));
+//                    dismiss();
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        focusedGrid = gridsLoadedFromDatabase.get(i);
+        for (int k = 0; k < gridListView.getChildCount(); k++) {
+            if (i == k) {
+                gridListView.getChildAt(k).setBackgroundColor(Color.GRAY);
+            } else {
+                gridListView.getChildAt(k).setBackgroundColor(Color.WHITE);
+            }
+        }
+    }
+}

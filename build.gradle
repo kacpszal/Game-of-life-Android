@@ -1,0 +1,31 @@
+configure(allprojects) { project ->
+    buildscript {
+        repositories {
+            jcenter()
+            mavenCentral()
+            maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+            mavenLocal()
+        }
+    }
+}
+
+subprojects {
+    group = 'pl.edu.agh.gameoflife'
+
+    ext.androidBuildToolsVersion    = '23.0.2'
+    ext.androidMinSdkVersion        = 15
+    ext.androidCompileSdkVersion    = 23
+    ext.androidTargetSdkVersion     = 23
+
+    ext.androidAnnotationsVersion = '3.3.2'
+    ext.androidAnnotationsAPIVersion = '3.3.2'
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "file://${System.getenv("ANDROID_HOME")}/extras/android/m2repository" }
+        mavenLocal()
+    }
+}
+
+apply plugin: 'java'

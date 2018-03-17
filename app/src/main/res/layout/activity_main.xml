@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <pl.edu.agh.gameoflife.app.view.AutomatonView
+        android:id="@+id/automatonView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <LinearLayout
+        style="@style/toolbar"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/reset"
+            style="@style/button"
+            android:src="@drawable/ic_bin" />
+
+        <ImageButton
+            android:id="@+id/restart"
+            style="@style/button"
+            android:src="@drawable/ic_restart" />
+
+        <ImageButton
+            android:id="@+id/settings"
+            style="@style/button"
+            android:src="@drawable/ic_settings" />
+
+        <ImageButton
+            android:id="@+id/save"
+            style="@style/button"
+            android:src="@android:drawable/ic_menu_save" />
+
+        <ImageButton
+            android:id="@+id/load"
+            style="@style/button"
+            android:src="@android:drawable/ic_menu_search" />
+
+        <ImageButton
+            android:id="@+id/pause"
+            style="@style/button"
+            android:src="@drawable/ic_pause" />
+
+        <ImageButton
+            android:id="@+id/resume"
+            style="@style/button"
+            android:src="@drawable/ic_play"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>
