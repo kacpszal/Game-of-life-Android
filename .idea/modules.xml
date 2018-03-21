@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Game-of-life-Android.iml" filepath="$PROJECT_DIR$/Game-of-life-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gameoflife.iml" filepath="$PROJECT_DIR$/gameoflife.iml" />
+      <module fileurl="file://C:\Users\Un1kalny\Documents\GitHub\Game-of-life-Android\gameoflife.iml" filepath="C:\Users\Un1kalny\Documents\GitHub\Game-of-life-Android\gameoflife.iml" />
     </modules>
   </component>
 </project>
