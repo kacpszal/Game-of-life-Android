@@ -17,14 +17,4 @@ public class EventBus extends Bus {
 
         return instance;
     }
-
-    @Override
-    public void unregister(Object object) {
-        try {
-            super.unregister(object);
-
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-    }
 }
