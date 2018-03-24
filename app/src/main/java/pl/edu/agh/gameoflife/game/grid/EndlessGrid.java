@@ -114,8 +114,6 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
         }
     }
 
-
-
     @Override
     public int getSizeX() {
         return sizeX;

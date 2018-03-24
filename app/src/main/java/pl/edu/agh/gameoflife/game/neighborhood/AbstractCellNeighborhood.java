@@ -17,5 +17,6 @@ public abstract class AbstractCellNeighborhood implements CellNeighborhood {
         this.radius = radius;
     }
 
+    @Override
     abstract public void notifyNeighbors(Cell cell);
 }

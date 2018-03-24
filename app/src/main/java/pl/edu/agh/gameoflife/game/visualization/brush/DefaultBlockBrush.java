@@ -40,8 +40,8 @@ public class DefaultBlockBrush implements Brush {
     private void doPaint() {
         paintWith(Cell.STATE_ALIVE);
         paint(0, 0);
-        paint(0, 1);
-        paint(1, 0);
-        paint(1, 1);
+        //paint(0, 1);
+        //paint(1, 0);
+        //paint(1, 1);
     }
 }

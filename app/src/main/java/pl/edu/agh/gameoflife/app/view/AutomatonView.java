@@ -8,8 +8,10 @@ import android.view.SurfaceView;
 
 import hugo.weaving.DebugLog;
 import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
+import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
+import pl.edu.agh.gameoflife.game.structures.Structure;
 import pl.edu.agh.gameoflife.util.EventBus;
 
 public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback {
@@ -82,7 +84,15 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     protected void paint(MotionEvent event) {
         int x = Math.round(event.getX() / params.getCellSizeInPixels());
         int y = Math.round(event.getY() / params.getCellSizeInPixels());
-
         EventBus.getInstance().post(new PaintWithBrush(x, y));
+        //paintStructure(new GunStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        //paintStructure(new GliderStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        //paintStructure(new PenthadecathlonStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+    }
+
+    protected void paintStructure(Structure structure) {
+        for (Cell cell : structure.getListOfStructure()) {
+            EventBus.getInstance().post(new PaintWithBrush(cell.getX(), cell.getY()));
+        }
     }
 }
