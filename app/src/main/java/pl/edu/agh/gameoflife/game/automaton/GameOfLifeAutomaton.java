@@ -5,7 +5,7 @@ import android.os.Parcel;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.SimpleCell;
 import pl.edu.agh.gameoflife.game.cell.SimpleCellFactory;
-import pl.edu.agh.gameoflife.game.rule.ConwaysRule;
+import pl.edu.agh.gameoflife.game.rule.ReplicatorRule;
 import pl.edu.agh.gameoflife.game.rule.Rule;
 
 public class GameOfLifeAutomaton extends AbstractCellularAutomaton<SimpleCell> {
@@ -24,13 +24,13 @@ public class GameOfLifeAutomaton extends AbstractCellularAutomaton<SimpleCell> {
 
     @Override
     public Rule<SimpleCell> createRule() {
-        return new ConwaysRule();
+        //return new ConwaysRule();
         //return new MazeRule();
         //return new GrowthRule();
         //return new FlakesRule();
         //return new CoralRule();
         //return new CitiesSurroundedByWallRule();
-        //return new ReplicatorRule();
+        return new ReplicatorRule();
         //return new SeedsRule();
         //return new ServietteRule();
         //return new ThreeFourRule();

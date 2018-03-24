@@ -9,6 +9,8 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.Overseer;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
+import pl.edu.agh.gameoflife.game.neighborhood.CellNeighborhood;
+import pl.edu.agh.gameoflife.game.neighborhood.MooreNeighborhood;
 import pl.edu.agh.gameoflife.util.EventBus;
 
 public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
@@ -25,6 +27,8 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
     protected final int sizeY;
     protected final T[][] cells;
     protected final Set<Long> cellIds;
+    protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this);
+    //protected CellNeighborhood cellNeighborhood = new VonNeumannNeighborhood(this);
     private final CellFactory<T> cellFactory;
 
     public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
@@ -105,22 +109,11 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
         EventBus.getInstance().post(cellStateChange);
 
         if (cellIds.contains(cellStateChange.cell.getId())) {
-            notifyNeighbors(cellStateChange.cell);
+            cellNeighborhood.notifyNeighbors(cellStateChange.cell);
         }
     }
 
-    private void notifyNeighbors(Cell cell) {
-        for (int j = -1; j <= 1; j++) {
-            for (int i = -1; i <= 1; i++) {
-                if (j == 0 && i == 0) {
-                    continue;
-                }
 
-                Cell neighbor = getCell(cell.getX() + i, cell.getY() + j);
-                neighbor.onNeighborStateChange(cell.getState());
-            }
-        }
-    }
 
     @Override
     public int getSizeX() {
