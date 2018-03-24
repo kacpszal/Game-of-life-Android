@@ -25,6 +25,16 @@ public class GameOfLifeAutomaton extends AbstractCellularAutomaton<SimpleCell> {
     @Override
     public Rule<SimpleCell> createRule() {
         return new ConwaysRule();
+        //return new MazeRule();
+        //return new GrowthRule();
+        //return new FlakesRule();
+        //return new CoralRule();
+        //return new CitiesSurroundedByWallRule();
+        //return new ReplicatorRule();
+        //return new SeedsRule();
+        //return new ServietteRule();
+        //return new ThreeFourRule();
+        //return new AssimilationRule();
     }
 
     public static final Creator<GameOfLifeAutomaton> CREATOR = new Creator<GameOfLifeAutomaton>() {

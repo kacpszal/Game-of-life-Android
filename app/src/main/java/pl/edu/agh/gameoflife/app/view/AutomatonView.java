@@ -67,7 +67,6 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
             try {
                 thread.join();
                 break;
-
             } catch (InterruptedException e) {
             }
         }

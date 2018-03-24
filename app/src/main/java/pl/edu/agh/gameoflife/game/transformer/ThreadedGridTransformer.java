@@ -99,7 +99,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
     private void awaitLatch() {
         try {
             countDownLatch.await();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

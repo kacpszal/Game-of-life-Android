@@ -55,7 +55,6 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
         loadGridButton = (Button) view.findViewById(R.id.load_button);
 
         return view;
-
     }
 
     @Override

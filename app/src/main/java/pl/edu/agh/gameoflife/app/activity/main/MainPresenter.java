@@ -142,14 +142,12 @@ public class MainPresenter {
 
     void onSaveGame() {
         EventBus.getInstance().post(new Save());
-
     }
 
     void onLoadGame() {
         LoadGridDialogFragment dialogFragment = LoadGridDialogFragment_.builder().build();
         dialogFragment.setGameManager(gameManager);
         dialogFragment.show(activity.getFragmentManager(), "loadGrid");
-
     }
 
     void onSettings() {
