@@ -8,15 +8,19 @@ public class VonNeumannNeighborhood extends AbstractCellNeighborhood {
         super(grid);
     }
 
+    public VonNeumannNeighborhood(Grid grid, int radius) {
+        super(grid, radius);
+    }
+
     @Override
     public void notifyNeighbors(Cell cell) {
-        for (int j = -1; j <= 1; ++j) {
+        for (int j = -radius; j <= radius; ++j) {
             if(j != 0) {
                 Cell neighbor = grid.getCell(cell.getX(), cell.getY() + j);
                 neighbor.onNeighborStateChange(cell.getState());
             }
         }
-        for (int i = -1; i <= 1; ++i) {
+        for (int i = -radius; i <= radius; ++i) {
             if(i != 0) {
                 Cell neighbor = grid.getCell(cell.getX() + i, cell.getY());
                 neighbor.onNeighborStateChange(cell.getState());

@@ -8,10 +8,14 @@ public class MooreNeighborhood extends AbstractCellNeighborhood {
         super(grid);
     }
 
+    public MooreNeighborhood(Grid grid, int radius) {
+        super(grid, radius);
+    }
+
     @Override
     public void notifyNeighbors(Cell cell) {
-        for (int j = -1; j <= 1; ++j) {
-            for (int i = -1; i <= 1; ++i) {
+        for (int j = -radius; j <= radius; ++j) {
+            for (int i = -radius; i <= radius; ++i) {
                 if (j != 0 || i != 0) {
                     Cell neighbor = grid.getCell(cell.getX() + i, cell.getY() + j);
                     neighbor.onNeighborStateChange(cell.getState());
