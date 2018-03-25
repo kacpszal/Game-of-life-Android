@@ -18,7 +18,6 @@ public class GunStructure extends AbstractStructure {
             listOfStructure.add(new SimpleCell(x + 1, y + 4, 1));
             listOfStructure.add(new SimpleCell(x, y + 3, 1));
             listOfStructure.add(new SimpleCell(x + 1, y + 3, 1));
-
             listOfStructure.add(new SimpleCell(x + 10, y + 2, 1));
             listOfStructure.add(new SimpleCell(x + 10, y + 3, 1));
             listOfStructure.add(new SimpleCell(x + 10, y + 4, 1));
@@ -28,7 +27,6 @@ public class GunStructure extends AbstractStructure {
             listOfStructure.add(new SimpleCell(x + 13, y, 1));
             listOfStructure.add(new SimpleCell(x + 12, y + 6, 1));
             listOfStructure.add(new SimpleCell(x + 13, y + 6, 1));
-
             listOfStructure.add(new SimpleCell(x + 14, y + 3, 1));
             listOfStructure.add(new SimpleCell(x + 15, y + 1, 1));
             listOfStructure.add(new SimpleCell(x + 15, y + 5, 1));
@@ -36,7 +34,6 @@ public class GunStructure extends AbstractStructure {
             listOfStructure.add(new SimpleCell(x + 16, y + 3, 1));
             listOfStructure.add(new SimpleCell(x + 16, y + 2, 1));
             listOfStructure.add(new SimpleCell(x + 17, y + 3, 1));
-
             listOfStructure.add(new SimpleCell(x + 20, y + 4, 1));
             listOfStructure.add(new SimpleCell(x + 20, y + 5, 1));
             listOfStructure.add(new SimpleCell(x + 20, y + 6, 1));
@@ -49,7 +46,6 @@ public class GunStructure extends AbstractStructure {
             listOfStructure.add(new SimpleCell(x + 24, y + 2, 1));
             listOfStructure.add(new SimpleCell(x + 24, y + 7, 1));
             listOfStructure.add(new SimpleCell(x + 24, y + 8, 1));
-
             listOfStructure.add(new SimpleCell(x + 34, y + 5, 1));
             listOfStructure.add(new SimpleCell(x + 34, y + 6, 1));
             listOfStructure.add(new SimpleCell(x + 35, y + 5, 1));

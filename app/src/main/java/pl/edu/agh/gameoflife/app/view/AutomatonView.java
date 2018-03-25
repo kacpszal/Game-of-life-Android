@@ -88,6 +88,9 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
         //paintStructure(new GunStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
         //paintStructure(new GliderStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
         //paintStructure(new PenthadecathlonStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        //paintStructure(new DakotaStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        //paintStructure(new SpaceshipStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        //paintStructure(new FountainStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
     }
 
     protected void paintStructure(Structure structure) {
