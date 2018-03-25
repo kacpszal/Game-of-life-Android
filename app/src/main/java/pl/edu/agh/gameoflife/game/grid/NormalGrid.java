@@ -13,14 +13,14 @@ import pl.edu.agh.gameoflife.game.neighborhood.CellNeighborhood;
 import pl.edu.agh.gameoflife.game.neighborhood.MooreNeighborhood;
 import pl.edu.agh.gameoflife.util.EventBus;
 
-public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
-    public static final Creator<EndlessGrid> CREATOR = new Creator<EndlessGrid>() {
-        public EndlessGrid createFromParcel(Parcel source) {
-            return new EndlessGrid(source);
+public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
+    public static final Creator<NormalGrid> CREATOR = new Creator<NormalGrid>() {
+        public NormalGrid createFromParcel(Parcel source) {
+            return new NormalGrid(source);
         }
 
-        public EndlessGrid[] newArray(int size) {
-            return new EndlessGrid[size];
+        public NormalGrid[] newArray(int size) {
+            return new NormalGrid[size];
         }
     };
     protected final int sizeX;
@@ -32,7 +32,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
     //protected CellNeighborhood cellNeighborhood = new VonNeumannNeighborhood(this);
     private final CellFactory<T> cellFactory;
 
-    public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
+    public NormalGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.cellFactory = cellFactory;
@@ -41,12 +41,12 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
         createCells(sizeX, sizeY, cellFactory);
     }
 
-    public EndlessGrid(Grid<T> other, CellFactory<T> cellFactory) {
+    public NormalGrid(Grid<T> other, CellFactory<T> cellFactory) {
         this(other.getSizeX(), other.getSizeY(), cellFactory);
         copyCells(other);
     }
 
-    protected EndlessGrid(Parcel in) {
+    protected NormalGrid(Parcel in) {
         this.cellFactory = (CellFactory<T>) in.readSerializable();
         this.sizeX = in.readInt();
         this.sizeY = in.readInt();
@@ -84,8 +84,8 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
 
     @Override
     public void putCell(T cell) {
-        int y = normalizeY(cell.getY());
-        int x = normalizeX(cell.getX());
+        int y = cell.getY();
+        int x = cell.getX();
         maintainIds(cell, x, y);
         cell.setOverseer(this);
 
@@ -125,31 +125,10 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
 
     @Override
     public T getCell(int x, int y) {
-        return (T) cells[normalizeY(y)][normalizeX(x)];
-    }
-
-    int normalizeY(int y) {
-        while (y < 0) {
-            y += sizeY;
+        if(x < 0 || x >= sizeX || y < 0 || y >= sizeY) {
+            return null;
         }
-
-        while (y >= sizeY) {
-            y -= sizeY;
-        }
-
-        return y;
-    }
-
-    int normalizeX(int x) {
-        while (x < 0) {
-            x += sizeX;
-        }
-
-        while (x >= sizeX) {
-            x -= sizeX;
-        }
-
-        return x;
+        return (T) cells[y][x];
     }
 
     @Override
@@ -157,7 +136,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EndlessGrid that = (EndlessGrid) o;
+        NormalGrid that = (NormalGrid) o;
 
         if (sizeX != that.sizeX) return false;
         if (sizeY != that.sizeY) return false;

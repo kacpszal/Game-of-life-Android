@@ -18,7 +18,9 @@ public class MooreNeighborhood extends AbstractCellNeighborhood {
             for (int i = -radius; i <= radius; ++i) {
                 if (j != 0 || i != 0) {
                     Cell neighbor = grid.getCell(cell.getX() + i, cell.getY() + j);
-                    neighbor.onNeighborStateChange(cell.getState());
+                    if(neighbor != null) {
+                        neighbor.onNeighborStateChange(cell.getState());
+                    }
                 }
             }
         }
