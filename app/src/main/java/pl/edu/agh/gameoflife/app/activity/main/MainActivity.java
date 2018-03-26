@@ -22,100 +22,24 @@ import pl.edu.agh.gameoflife.persistence.DataManager;
 @EActivity(R.layout.activity_main)
 @Fullscreen
 public class MainActivity extends Activity {
-    @InstanceState
-    boolean paused;
-
-    @InstanceState
-    int lastOrientation;
-
-    @InstanceState
-    Bundle gameState;
-
-    @Bean
-    MainPresenter presenter;
-
-    @ViewById
-    AutomatonView automatonView;
-
-    @ViewById
-    ImageButton reset, restart, save, load, settings, pause, resume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter.onActivityCreate();
 
-//        removeDataOnLoad();
     }
 
-    private void removeDataOnLoad() {
-        DataManager manager = DataManager.getSharedInstance(getApplicationContext());
-
-        try {
-            manager.database.delete();
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-
-        DataManager.instance = null;
-    }
-
-    @Override
-    @DebugLog
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        gameState = presenter.saveGameState();
-    }
-
-    @AfterViews
-    void afterViews() {
-        presenter.startGame();
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onActivityResume();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        presenter.onActivityPause();
+
     }
 
-    @Click
-    void pause() {
-        presenter.onPause();
-    }
-
-    @Click
-    void resume() {
-        presenter.onResume();
-    }
-
-    @Click
-    void reset() {
-        presenter.onResetGame();
-    }
-
-    @Click
-    void restart() {
-        presenter.onRestartGame();
-    }
-
-    @Click
-    void save() {
-        presenter.onSaveGame();
-    }
-
-    @Click
-    void load() {
-        presenter.onLoadGame();
-    }
-
-    @Click
-    void settings() {
-        presenter.onSettings();
-    }
 }
