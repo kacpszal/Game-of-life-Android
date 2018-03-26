@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 public class MainActivityTest extends RobolectricTest {
 
     //@Mock
-    //MainPresenter presenter;
+    //GameOfLifePresenter presenter;
 
     //MainActivity_ activity = Robolectric.buildActivity(MainActivity_.class).create().get();
 

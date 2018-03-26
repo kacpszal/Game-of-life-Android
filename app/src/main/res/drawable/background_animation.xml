@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/first_bg_anim"
+        android:duration="4500" />
+    <item
+        android:drawable="@drawable/second_bg_anim"
+        android:duration="4500" />
+    <item
+        android:drawable="@drawable/third_bg_anim"
+        android:duration="4500" />
+
+</transition>

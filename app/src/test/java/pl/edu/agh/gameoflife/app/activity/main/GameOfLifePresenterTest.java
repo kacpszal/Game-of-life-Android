@@ -14,13 +14,13 @@ import org.mockito.MockitoAnnotations;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-public class MainPresenterTest extends RobolectricTest {
+public class GameOfLifePresenterTest extends RobolectricTest {
 
     @Mock
     MainActivity view;
 
     @InjectMocks
-    MainPresenter presenter;
+    GameOfLifePresenter presenter;
 
     @Before
     public void setUp() {

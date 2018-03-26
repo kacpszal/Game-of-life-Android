@@ -2,6 +2,10 @@
 <resources>
     <string name="action_settings">Ustawienia</string>
     <string name="exit_menu_button">Exit</string>
+    <string name="play_menu_button">Play</string>
+    <string name="load_menu_button">Load Automaton</string>
+    <string name="save_menu_button">Save Automaton</string>
+    <string name="settings_menu_button">Game Settings</string>
 
     <string name="yes">Tak</string>
     <string name="no">Nie</string>

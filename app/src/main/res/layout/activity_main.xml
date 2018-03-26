@@ -3,63 +3,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
+    android:background="@drawable/first_bg_anim"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-
     <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:background="@drawable/button"
+        android:id="@+id/play"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/button3"
-        android:layout_marginTop="65dp"
-        android:text="@String/settings_menu_button"
-        tools:text="Game Settings" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button5"
-        android:layout_marginTop="16dp"
-        android:text="@string/exit_menu_button"
-        tools:text="Exit" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="219dp"
-        android:text="@String/play_menu_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:onClick="play"
+        android:text="@string/play_menu_button"
         tools:text="Play" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
+        android:id="@+id/exit"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button"
-        android:layout_marginTop="17dp"
-        android:text="@string/load_menu_button"
-        tools:text="Load Automaton" />
+        android:layout_below="@+id/play"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/button"
+        android:onClick="exit"
+        android:text="@string/exit_menu_button"
+        tools:text="Exit" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button4"
-        android:layout_marginTop="21dp"
-        android:text="@string/save_menu_button"
-        tools:text="Save Automaton" />
+
+
 </RelativeLayout>
