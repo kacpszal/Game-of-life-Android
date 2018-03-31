@@ -82,13 +82,20 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mScaleDetector.onTouchEvent(event);
+        /*mScaleDetector.onTouchEvent(event);
         if(!mScaleDetector.isInProgress() && !params.getIsScaleGestureInProgress()){
             paint(event);
         }
         if(event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_UP) {
             params.setIsScaleGestureInProgress(false);
+        }*/
+
+        if(params.getIsZoom()) {
+            mScaleDetector.onTouchEvent(event);
+        } else {
+            paint(event);
         }
+
         return true;
     }
 

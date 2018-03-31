@@ -17,6 +17,17 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/zoom"
+            style="@style/button"
+            android:src="@drawable/ic_pause" />
+
+        <ImageButton
+            android:id="@+id/draw"
+            style="@style/button"
+            android:src="@drawable/ic_play"
+            android:visibility="gone" />
+
+        <ImageButton
             android:id="@+id/reset"
             style="@style/button"
             android:src="@drawable/ic_bin" />

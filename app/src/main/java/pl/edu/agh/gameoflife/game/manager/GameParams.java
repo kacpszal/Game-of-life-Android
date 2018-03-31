@@ -19,6 +19,7 @@ public class GameParams {
     private float focusX = 0;
     private float focusY = 0;
     private boolean isScaleGestureInProgress = false;
+    private boolean isZoom = false;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -98,6 +99,14 @@ public class GameParams {
 
     public void setIsScaleGestureInProgress(boolean isScaleGestureInProgress) {
         this.isScaleGestureInProgress = isScaleGestureInProgress;
+    }
+
+    public boolean getIsZoom() {
+        return isZoom;
+    }
+
+    public void setIsZoom(boolean isZoom) {
+        this.isZoom = isZoom;
     }
 
     public static final class Builder {

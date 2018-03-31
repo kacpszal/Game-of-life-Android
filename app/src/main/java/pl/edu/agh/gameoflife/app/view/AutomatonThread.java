@@ -17,6 +17,7 @@ import java.util.List;
 
 import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
+import pl.edu.agh.gameoflife.game.event.Draw;
 import pl.edu.agh.gameoflife.game.event.Load;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.event.Pause;
@@ -24,6 +25,7 @@ import pl.edu.agh.gameoflife.game.event.Reset;
 import pl.edu.agh.gameoflife.game.event.Restart;
 import pl.edu.agh.gameoflife.game.event.Resume;
 import pl.edu.agh.gameoflife.game.event.Save;
+import pl.edu.agh.gameoflife.game.event.Zoom;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.visualization.brush.Brush;
@@ -157,6 +159,16 @@ class AutomatonThread extends Thread {
             automaton.fillFromGrid(grids.get(0));
         }
 
+    }
+
+    @Subscribe
+    synchronized public void onEvent(Draw event) {
+        params.setIsZoom(false);
+    }
+
+    @Subscribe
+    synchronized public void onEvent(Zoom event) {
+        params.setIsZoom(true);
     }
 
 
