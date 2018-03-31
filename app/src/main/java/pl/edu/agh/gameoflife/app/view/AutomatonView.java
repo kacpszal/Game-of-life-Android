@@ -83,8 +83,11 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mScaleDetector.onTouchEvent(event);
-        if(!mScaleDetector.isInProgress()){
+        if(!mScaleDetector.isInProgress() && !params.getIsScaleGestureInProgress()){
             paint(event);
+        }
+        if(event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_UP) {
+            params.setIsScaleGestureInProgress(false);
         }
         return true;
     }
@@ -125,6 +128,7 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            params.setIsScaleGestureInProgress(true);
             scaleFactor *= detector.getScaleFactor();
             scaleFactor = Math.max(1.0f, Math.min(scaleFactor, 5.0f));
             params.setScaleFactor(scaleFactor);

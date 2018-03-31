@@ -18,6 +18,7 @@ public class GameParams {
     private float scaleFactor = 1.f;
     private float focusX = 0;
     private float focusY = 0;
+    private boolean isScaleGestureInProgress = false;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -89,6 +90,14 @@ public class GameParams {
 
     public void setFocusY(float focusY) {
         this.focusY = focusY;
+    }
+
+    public boolean getIsScaleGestureInProgress() {
+        return isScaleGestureInProgress;
+    }
+
+    public void setIsScaleGestureInProgress(boolean isScaleGestureInProgress) {
+        this.isScaleGestureInProgress = isScaleGestureInProgress;
     }
 
     public static final class Builder {
