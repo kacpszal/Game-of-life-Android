@@ -15,6 +15,9 @@ public class GameParams {
     private final CellColors cellColors;
     private final int fps;
     private final boolean startPaused;
+    private float scaleFactor = 1.f;
+    private float focusX = 0;
+    private float focusY = 0;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -62,6 +65,30 @@ public class GameParams {
 
     public boolean startPaused() {
         return startPaused;
+    }
+
+    public float getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public float getFocusX() {
+        return focusX;
+    }
+
+    public float getFocusY() {
+        return focusY;
+    }
+
+    public void setScaleFactor(float scaleFactor) {
+        this.scaleFactor = scaleFactor;
+    }
+
+    public void setFocusX(float focusX) {
+        this.focusX = focusX;
+    }
+
+    public void setFocusY(float focusY) {
+        this.focusY = focusY;
     }
 
     public static final class Builder {

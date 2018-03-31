@@ -180,6 +180,7 @@ class AutomatonThread extends Thread {
 
         try {
             canvas = surfaceHolder.lockCanvas();
+            canvas.scale(params.getScaleFactor(), params.getScaleFactor(), params.getFocusX(), params.getFocusY());
             gameCycle(canvas);
 
         } catch (InterruptedException e) {

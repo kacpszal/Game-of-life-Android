@@ -3,6 +3,7 @@ package pl.edu.agh.gameoflife.app.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -18,17 +19,22 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     private CellularAutomaton automaton;
     private GameParams params;
     private AutomatonThread thread;
+    private ScaleGestureDetector mScaleDetector;
+    private float scaleFactor = 1.0f;
 
     public AutomatonView(Context context) {
         super(context);
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public AutomatonView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public AutomatonView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     @DebugLog
@@ -76,14 +82,16 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        paint(event);
-
+        mScaleDetector.onTouchEvent(event);
+        if(!mScaleDetector.isInProgress()){
+            paint(event);
+        }
         return true;
     }
 
     protected void paint(MotionEvent event) {
-        int x = Math.round(event.getX() / params.getCellSizeInPixels());
-        int y = Math.round(event.getY() / params.getCellSizeInPixels());
+        int x = Math.round(adjustX(event.getX()) / params.getCellSizeInPixels());
+        int y = Math.round(adjustY(event.getY()) / params.getCellSizeInPixels());
         EventBus.getInstance().post(new PaintWithBrush(x, y));
         //paintStructure(new GunStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
         //paintStructure(new GliderStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
@@ -97,6 +105,32 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     protected void paintStructure(Structure structure) {
         for (Cell cell : structure.getListOfStructure()) {
             EventBus.getInstance().post(new PaintWithBrush(cell.getX(), cell.getY()));
+        }
+    }
+
+    private float adjustX(float x) {
+        x -= params.getFocusX();
+        x /= params.getScaleFactor();
+        x += params.getFocusX();
+        return x;
+    }
+
+    private float adjustY(float y) {
+        y -= params.getFocusY();
+        y /= params.getScaleFactor();
+        y += params.getFocusY();
+        return y;
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = Math.max(1.0f, Math.min(scaleFactor, 5.0f));
+            params.setScaleFactor(scaleFactor);
+            params.setFocusX(detector.getFocusX());
+            params.setFocusY(detector.getFocusY());
+            return true;
         }
     }
 }

@@ -7,7 +7,7 @@ public class NormalGridHandler <T extends Cell> implements GridHandler<T> {
     private final int x;
     private final int y;
     private final CellFactory<T> cellFactory;
-    Grid<T> currentGrid;
+    private Grid<T> currentGrid;
 
     public NormalGridHandler(int x, int y, CellFactory<T> cellFactory) {
         this.x = x;

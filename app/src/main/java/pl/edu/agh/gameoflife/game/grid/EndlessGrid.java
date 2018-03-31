@@ -128,7 +128,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
         return (T) cells[normalizeY(y)][normalizeX(x)];
     }
 
-    int normalizeY(int y) {
+    private int normalizeY(int y) {
         while (y < 0) {
             y += sizeY;
         }
@@ -140,7 +140,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
         return y;
     }
 
-    int normalizeX(int x) {
+    private int normalizeX(int x) {
         while (x < 0) {
             x += sizeX;
         }
