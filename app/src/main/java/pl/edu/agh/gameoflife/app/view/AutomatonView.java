@@ -137,10 +137,10 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
         float y;
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
-            x = params.getFocusX() - params.getPreviousFocusX();
+            x = params.getDrawFocusX() - params.getPreviousFocusX();
             x /= params.getScaleFactor();
             x += params.getPreviousFocusX();
-            y = params.getFocusY() - params.getPreviousFocusY();
+            y = params.getDrawFocusY() - params.getPreviousFocusY();
             y /= params.getScaleFactor();
             y += params.getPreviousFocusY();
             params.setPreviousFocusX(x);
