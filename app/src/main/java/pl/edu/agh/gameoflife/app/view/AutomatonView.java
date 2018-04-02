@@ -119,23 +119,37 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     private float adjustX(float x) {
-        x -= params.getFocusX();
+        x -= params.getDrawFocusX();
         x /= params.getScaleFactor();
-        x += params.getFocusX();
+        x += params.getDrawFocusX();
         return x;
     }
 
     private float adjustY(float y) {
-        y -= params.getFocusY();
+        y -= params.getDrawFocusY();
         y /= params.getScaleFactor();
-        y += params.getFocusY();
+        y += params.getDrawFocusY();
         return y;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        float x;
+        float y;
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            x = params.getFocusX() - params.getPreviousFocusX();
+            x /= params.getScaleFactor();
+            x += params.getPreviousFocusX();
+            y = params.getFocusY() - params.getPreviousFocusY();
+            y /= params.getScaleFactor();
+            y += params.getPreviousFocusY();
+            params.setPreviousFocusX(x);
+            params.setPreviousFocusY(y);
+        }
+
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            params.setIsScaleGestureInProgress(true);
+            //params.setIsScaleGestureInProgress(true);
             scaleFactor *= detector.getScaleFactor();
             scaleFactor = Math.max(1.0f, Math.min(scaleFactor, 5.0f));
             params.setScaleFactor(scaleFactor);

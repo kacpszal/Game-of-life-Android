@@ -18,6 +18,10 @@ public class GameParams {
     private float scaleFactor = 1.f;
     private float focusX = 0;
     private float focusY = 0;
+    private float previousFocusX = 0;
+    private float previousFocusY = 0;
+    private float drawFocusX = 0;
+    private float drawFocusY = 0;
     private boolean isScaleGestureInProgress = false;
     private boolean isZoom = false;
 
@@ -107,6 +111,38 @@ public class GameParams {
 
     public void setIsZoom(boolean isZoom) {
         this.isZoom = isZoom;
+    }
+
+    public float getPreviousFocusX() {
+        return previousFocusX;
+    }
+
+    public void setPreviousFocusX(float previousFocusX) {
+        this.previousFocusX = previousFocusX;
+    }
+
+    public float getPreviousFocusY() {
+        return previousFocusY;
+    }
+
+    public void setPreviousFocusY(float previousFocusY) {
+        this.previousFocusY = previousFocusY;
+    }
+
+    public float getDrawFocusX() {
+        return drawFocusX;
+    }
+
+    public void setDrawFocusX(float drawFocusX) {
+        this.drawFocusX = drawFocusX;
+    }
+
+    public float getDrawFocusY() {
+        return drawFocusY;
+    }
+
+    public void setDrawFocusY(float drawFocusY) {
+        this.drawFocusY = drawFocusY;
     }
 
     public static final class Builder {
