@@ -15,8 +15,7 @@ public class AnimationTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.animation_tab,container,false);
-
-        return v;
+        View view = inflater.inflate(R.layout.animation_tab,container,false);
+        return view;
     }
 }
