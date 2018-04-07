@@ -17,6 +17,7 @@ import java.util.List;
 
 import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
+import pl.edu.agh.gameoflife.game.event.Draw;
 import pl.edu.agh.gameoflife.game.event.Load;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.event.Pause;
@@ -24,6 +25,7 @@ import pl.edu.agh.gameoflife.game.event.Reset;
 import pl.edu.agh.gameoflife.game.event.Restart;
 import pl.edu.agh.gameoflife.game.event.Resume;
 import pl.edu.agh.gameoflife.game.event.Save;
+import pl.edu.agh.gameoflife.game.event.Zoom;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.visualization.brush.Brush;
@@ -159,6 +161,15 @@ class AutomatonThread extends Thread {
 
     }
 
+    @Subscribe
+    synchronized public void onEvent(Draw event) {
+        params.setIsZoom(false);
+    }
+
+    @Subscribe
+    synchronized public void onEvent(Zoom event) {
+        params.setIsZoom(true);
+    }
 
     public void setRunning(boolean v) {
         this.isRunning = v;
@@ -175,9 +186,24 @@ class AutomatonThread extends Thread {
         EventBus.getInstance().unregister(this);
     }
 
+    private float adjustX(float x) {
+        x -= params.getPreviousFocusX();
+        x /= params.getScaleFactor();
+        x += params.getPreviousFocusX();
+        params.setDrawFocusX(x);
+        return x;
+    }
+
+    private float adjustY(float y) {
+        y -= params.getPreviousFocusY();
+        y /= params.getScaleFactor();
+        y += params.getPreviousFocusY();
+        params.setDrawFocusY(y);
+        return y;
+    }
+
     protected void canvasCycle() {
         Canvas canvas = null;
-
         try {
             canvas = surfaceHolder.lockCanvas();
             gameCycle(canvas);
@@ -192,6 +218,7 @@ class AutomatonThread extends Thread {
 
     protected void gameCycle(Canvas canvas) throws InterruptedException {
         if (canvas != null) {
+            canvas.scale(params.getScaleFactor(), params.getScaleFactor(), adjustX(params.getFocusX()), adjustY(params.getFocusY()));
             measuredCycleCore(canvas);
             sleepToKeepFps();
         }

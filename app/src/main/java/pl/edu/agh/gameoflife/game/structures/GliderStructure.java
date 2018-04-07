@@ -13,11 +13,11 @@ public class GliderStructure extends AbstractStructure {
         listOfStructure = new ArrayList<>();
 
         if (x + 2 <= width && y + 2 <= height) {
-            listOfStructure.add(new SimpleCell(x, y, 1));
-            listOfStructure.add(new SimpleCell(x + 1, y, 1));
-            listOfStructure.add(new SimpleCell(x + 2, y, 1));
-            listOfStructure.add(new SimpleCell(x, y + 1, 1));
-            listOfStructure.add(new SimpleCell(x + 1, y + 2, 1));
+            listOfStructure.add(new SimpleCell(x, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 1, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 2, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x, y + 1, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 1, y + 2, Cell.STATE_ALIVE));
         }
     }
 

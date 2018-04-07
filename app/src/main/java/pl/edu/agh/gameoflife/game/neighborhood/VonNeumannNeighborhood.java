@@ -17,13 +17,17 @@ public class VonNeumannNeighborhood extends AbstractCellNeighborhood {
         for (int j = -radius; j <= radius; ++j) {
             if(j != 0) {
                 Cell neighbor = grid.getCell(cell.getX(), cell.getY() + j);
-                neighbor.onNeighborStateChange(cell.getState());
+                if(neighbor != null) {
+                    neighbor.onNeighborStateChange(cell.getState());
+                }
             }
         }
         for (int i = -radius; i <= radius; ++i) {
             if(i != 0) {
                 Cell neighbor = grid.getCell(cell.getX() + i, cell.getY());
-                neighbor.onNeighborStateChange(cell.getState());
+                if(neighbor != null) {
+                    neighbor.onNeighborStateChange(cell.getState());
+                }
             }
         }
     }

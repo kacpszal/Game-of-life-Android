@@ -14,15 +14,15 @@ public class PenthadecathlonStructure extends AbstractStructure {
 
         if (x + 10 <= width ) {
             listOfStructure.add(new SimpleCell(x, y, 1));
-            listOfStructure.add(new SimpleCell(x + 1, y, 1));
-            listOfStructure.add(new SimpleCell(x + 2, y, 1));
-            listOfStructure.add(new SimpleCell(x + 3, y, 1));
-            listOfStructure.add(new SimpleCell(x + 4, y, 1));
-            listOfStructure.add(new SimpleCell(x + 5, y, 1));
-            listOfStructure.add(new SimpleCell(x + 6, y, 1));
-            listOfStructure.add(new SimpleCell(x + 7, y, 1));
-            listOfStructure.add(new SimpleCell(x + 8, y, 1));
-            listOfStructure.add(new SimpleCell(x + 9, y, 1));
+            listOfStructure.add(new SimpleCell(x + 1, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 2, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 3, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 4, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 5, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 6, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 7, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 8, y, Cell.STATE_ALIVE));
+            listOfStructure.add(new SimpleCell(x + 9, y, Cell.STATE_ALIVE));
         }
     }
 

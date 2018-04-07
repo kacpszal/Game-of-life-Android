@@ -50,6 +50,10 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
         return new EndlessGridHandler<T>(gridSizeX, gridSizeY, getFactory());
     }
 
+    /*protected NormalGridHandler<T> getGridHandler() {
+        return new NormalGridHandler<T>(gridSizeX, gridSizeY, getFactory());
+    }*/
+
     protected GridTransformer<T> getGridTransformer() {
         return new ThreadedGridTransformer<T>();
     }
