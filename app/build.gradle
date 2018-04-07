@@ -1,8 +1,7 @@
-
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://maven.fabric.io/public'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -75,6 +74,7 @@ dependencies {
     compile 'com.android.support:support-annotations:24.2.0'
     compile 'com.android.support:support-v13:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:design:24.2.0'
 
     // ---------
 
@@ -101,4 +101,5 @@ dependencies {
             'com.jakewharton.espresso:espresso:1.1-r3'
 
     compile 'com.couchbase.lite:couchbase-lite-android:1.4.1'
+
 }

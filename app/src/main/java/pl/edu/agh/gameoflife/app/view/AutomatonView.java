@@ -85,6 +85,7 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
         int x = Math.round(event.getX() / params.getCellSizeInPixels());
         int y = Math.round(event.getY() / params.getCellSizeInPixels());
         EventBus.getInstance().post(new PaintWithBrush(x, y));
+        // TODO: Implement structure change
         //paintStructure(new GunStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
         //paintStructure(new GliderStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
         //paintStructure(new PenthadecathlonStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));

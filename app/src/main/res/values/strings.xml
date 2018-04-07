@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Ustawienia</string>
+    <!-- menu -->
     <string name="exit_menu_button">Exit</string>
     <string name="play_menu_button">Play</string>
-    <string name="load_menu_button">Load Automaton</string>
-    <string name="save_menu_button">Save Automaton</string>
-    <string name="settings_menu_button">Game Settings</string>
 
-    <string name="yes">Tak</string>
-    <string name="no">Nie</string>
+    <!-- taby -->
+    <string name="game_rules_tab_text">Cell rule:</string>
+    <string name="special_rules_tab_text">Special cell rule:</string>
+    <string name="neighborhood_tab_text">Neighborhood:</string>
+    <string name="neighbor_radius_tab_text">Neighborhood radius:</string>
+    <string name="wrapping_tab_text">Map wrapping:</string>
+    <string name="structures_tab_text">Structures:</string>
+
+    <!-- taby:combobox -->
+    <string-array name="neighboorhood">
+        <item>Moore</item>
+        <item>Von Neumann</item>
+    </string-array>
+    <string-array name="special_cell_rule">
+        <item>Conways</item>
+        <item>Maze</item>
+        <item>Growth</item>
+        <item>Flakes</item>
+        <item>Coral</item>
+        <item>Cities surrounded by wall</item>
+        <item>Replicator</item>
+        <item>Seeds</item>
+        <item>Serviette</item>
+        <item>Three four</item>
+        <item>Assimilation</item>
+    </string-array>
+    <string-array name="structures">
+        <item>Crab</item>
+        <item>Dakota</item>
+        <item>Fountain</item>
+        <item>Glider</item>
+        <item>Gun</item>
+        <item>Penthadecathlon</item>
+        <item>Spaceship</item>
+    </string-array>
+
 </resources>

@@ -1,18 +1,19 @@
+
+
 package pl.edu.agh.gameoflife.app.view;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.SeekBar;
 
 import org.androidannotations.annotations.EFragment;
 
 import pl.edu.agh.gameoflife.R;
-import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 
 /**
@@ -20,22 +21,29 @@ import pl.edu.agh.gameoflife.game.manager.GameManager;
  */
 
 @EFragment
-public class SettingsDialogFragment extends DialogFragment implements View.OnClickListener {
+public class SettingsDialogFragment extends DialogFragment {
 
     GameManager gameManager;
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
-    Button cofnij, zatwierdz;
-    SeekBar zapelnienie, wielkoscProstokata;
-
-    @Nullable
-    @Override
+    @Override   @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.settings, null);
-        initDialog(view);
+
+        View view = inflater.inflate(R.layout.game_settings,container,false);
+
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) view.findViewById(R.id.masterViewPager);
+        CustomAdapter adapter = new CustomAdapter(getChildFragmentManager());
+        adapter.addFragment("Rules", new RulesTab());
+        adapter.addFragment("Animation", new AnimationTab());
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
         return view;
     }
 
-    private void initDialog(View view) {
+  /*  private void initDialog(View view) {
         this.initButtons(view);
         this.initSeekBars(view);
         setCancelable(false);
@@ -51,9 +59,9 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
     private void initSeekBars(View view) {
         zapelnienie = (SeekBar) view.findViewById(R.id.zapelnienie);
         wielkoscProstokata = (SeekBar) view.findViewById(R.id.wielkosciProstokata);
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onClick(View view) {
         if (view.getId() == R.id.cofnij) {
             dismiss();
@@ -63,7 +71,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
             gridCharacteristic.setRectangleScale(wielkoscProstokata.getProgress() / 100.0f);
             dismiss();
         }
-    }
+    }*/
 
     public void setGameManager(GameManager gameManager) {
         this.gameManager = gameManager;

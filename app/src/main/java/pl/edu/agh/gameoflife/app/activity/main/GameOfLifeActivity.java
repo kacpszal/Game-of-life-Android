@@ -1,7 +1,7 @@
 package pl.edu.agh.gameoflife.app.activity.main;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.widget.ImageButton;
 
 import com.couchbase.lite.CouchbaseLiteException;
@@ -21,7 +21,7 @@ import pl.edu.agh.gameoflife.persistence.DataManager;
 
 @EActivity(R.layout.activity_game_of_life)
 @Fullscreen
-public class GameOfLifeActivity extends Activity {
+public class GameOfLifeActivity extends FragmentActivity {
     @InstanceState
     boolean paused;
 

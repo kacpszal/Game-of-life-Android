@@ -154,6 +154,6 @@ public class GameOfLifePresenter {
     void onSettings() {
         SettingsDialogFragment dialogFragment = SettingsDialogFragment_.builder().build();
         dialogFragment.setGameManager(gameManager);
-        dialogFragment.show(activity.getFragmentManager(), "settings");
+        dialogFragment.show(activity.getSupportFragmentManager(), "gameSettings");
     }
 }

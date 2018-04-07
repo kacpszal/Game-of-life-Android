@@ -28,6 +28,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
     protected final T[][] cells;
     protected final Set<Long> cellIds;
     protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this);
+    // TODO: Implement neighborhood change
     //protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this, 2);
     //protected CellNeighborhood cellNeighborhood = new VonNeumannNeighborhood(this);
     private final CellFactory<T> cellFactory;

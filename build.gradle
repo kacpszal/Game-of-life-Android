@@ -13,7 +13,7 @@ subprojects {
     group = 'pl.edu.agh.gameoflife'
 
     ext.androidBuildToolsVersion    = '23.0.2'
-    ext.androidMinSdkVersion        = 15
+    ext.androidMinSdkVersion        = 17
     ext.androidCompileSdkVersion    = 23
     ext.androidTargetSdkVersion     = 23
 
@@ -29,3 +29,12 @@ subprojects {
 }
 
 apply plugin: 'java'
+
+repositories {
+    google()
+}
+buildscript {
+    repositories {
+        google()
+    }
+}
