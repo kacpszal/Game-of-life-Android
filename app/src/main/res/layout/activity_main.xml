@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_layout_main"
-    android:background="@drawable/first_bg_anim"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+<ImageView
+    android:src="@drawable/bakground_image"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <Button
         android:background="@drawable/button"
@@ -31,6 +39,6 @@
         android:text="@string/exit_menu_button"
         tools:text="Exit" />
 
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</FrameLayout>
