@@ -1,34 +1,49 @@
 package pl.edu.agh.gameoflife.app.util;
 
+import android.graphics.Color;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.widget.EditText;
 
-import java.util.regex.Pattern;
-
-/**
- * Created by Lenovo on 2018-04-07.
- */
 
 public class CellRuleWatcher implements TextWatcher {
-    private final Pattern regex = Pattern.compile("[0-9]\\[0-9]");
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
+    private EditText field;
+    public Boolean fieldValid = false;
+    private final String regex = "[0-9]{1,9}/[0-9]{1,9}";
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+    public CellRuleWatcher(EditText cellRule) {
+        this.field = cellRule;
+        field.setFilters(new InputFilter[]{
+                new PartialRegexInputFilter(regex)
+        });
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-        String text = s.toString();
-        int length = text.length();
-
-        if (!regex.matcher(text).matches() && length > 0) {
-            s.delete(length - 1, length);
+        String value  = s.toString();
+        if(value.matches(regex)){
+            field.setTextColor(Color.BLACK);
+            fieldValid = true;
         }
+        else{
+            field.setTextColor(Color.RED);
+            fieldValid = false;
+        }
+
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start,
+                                  int count, int after) {}
+
+    @Override
+    public void onTextChanged(CharSequence s, int start,
+                              int before, int count) {}
+
+    public Boolean getFieldValid() {
+        return fieldValid;
+    }
 }

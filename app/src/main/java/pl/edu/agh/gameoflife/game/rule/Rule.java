@@ -7,4 +7,5 @@ import pl.edu.agh.gameoflife.game.grid.Grid;
 
 public interface Rule<T extends Cell> extends Serializable {
     int apply(Grid<T> grid, int x, int y);
+    String toString();
 }

@@ -1,9 +1,8 @@
 
 
-package pl.edu.agh.gameoflife.app.view;
+package pl.edu.agh.gameoflife.app.view.gameSettings;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import org.androidannotations.annotations.EFragment;
 
 import pl.edu.agh.gameoflife.R;
+import pl.edu.agh.gameoflife.app.view.CustomAdapter;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 
 
@@ -24,15 +24,18 @@ public class SettingsDialogFragment extends DialogFragment {
     TabLayout tabLayout;
     ViewPager viewPager;
 
-    @Override   @Nullable
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.game_settings,container,false);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) view.findViewById(R.id.masterViewPager);
         CustomAdapter adapter = new CustomAdapter(getChildFragmentManager());
-        adapter.addFragment("Rules", new RulesTab());
+
+        RulesTab rulesTab = new RulesTab();
+        rulesTab.setGameManager(gameManager);
+        adapter.addFragment("Rules", rulesTab );
         adapter.addFragment("Animation", new AnimationTab());
 
         viewPager.setAdapter(adapter);

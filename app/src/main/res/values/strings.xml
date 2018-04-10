@@ -18,6 +18,7 @@
         <item>Von Neumann</item>
     </string-array>
     <string-array name="special_cell_rule">
+        <item>Custom rule (fill field above)</item>
         <item>Conways</item>
         <item>Maze</item>
         <item>Growth</item>
@@ -39,5 +40,10 @@
         <item>Penthadecathlon</item>
         <item>Spaceship</item>
     </string-array>
+
+    <!-- taby:button -->
+    <string name="apply_button">Apply</string>
+    <string name="load_button">Load</string>
+    <string name="save_button">Save</string>
 
 </resources>

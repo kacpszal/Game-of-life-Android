@@ -10,6 +10,7 @@ import pl.edu.agh.gameoflife.game.grid.Grid;
 public class NeighborCountBasedRule implements Rule<SimpleCell> {
     private final Set<Integer> survivalNbCounts;
     private final Set<Integer> creationNbCounts;
+    private String rule;
 
     public NeighborCountBasedRule(Set<Integer> survivalNbCounts, Set<Integer> creationNbCounts) {
         this.survivalNbCounts = new HashSet<>(survivalNbCounts);
@@ -22,6 +23,7 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
             throw new IllegalArgumentException("Invalid rule string: " + rule);
         }
 
+        this.rule = rule;
         try {
             survivalNbCounts = new HashSet<>();
             String survival = split[0];
@@ -43,6 +45,11 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
     public NeighborCountBasedRule(NeighborCountBasedRule other) {
         this.survivalNbCounts = new HashSet<>(other.survivalNbCounts);
         this.creationNbCounts = new HashSet<>(other.creationNbCounts);
+    }
+
+    @Override
+    public String toString() {
+        return rule;
     }
 
     @Override

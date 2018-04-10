@@ -4,18 +4,15 @@ package pl.edu.agh.gameoflife.app.activity.main;
 import android.graphics.Point;
 import android.os.Bundle;
 
-import com.squareup.otto.Subscribe;
-
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import hugo.weaving.DebugLog;
 import pl.edu.agh.gameoflife.app.util.DisplayHelper;
 import pl.edu.agh.gameoflife.app.view.LoadGridDialogFragment;
 import pl.edu.agh.gameoflife.app.view.LoadGridDialogFragment_;
-import pl.edu.agh.gameoflife.app.view.SettingsDialogFragment;
-import pl.edu.agh.gameoflife.app.view.SettingsDialogFragment_;
+import pl.edu.agh.gameoflife.app.view.gameSettings.SettingsDialogFragment;
+import pl.edu.agh.gameoflife.app.view.gameSettings.SettingsDialogFragment_;
 import pl.edu.agh.gameoflife.game.automaton.GameOfLifeAutomatonFactory;
 import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
 import pl.edu.agh.gameoflife.game.cell.Cell;
@@ -26,7 +23,6 @@ import pl.edu.agh.gameoflife.game.event.Resume;
 import pl.edu.agh.gameoflife.game.event.Save;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
-import pl.edu.agh.gameoflife.game.rule.NeighborCountBasedRule;
 import pl.edu.agh.gameoflife.game.visualization.cell.SimpleCellColors;
 import pl.edu.agh.gameoflife.util.EventBus;
 
@@ -129,12 +125,6 @@ public class GameOfLifePresenter {
     void onResetGame() {
         onPause();
         EventBus.getInstance().post(new Reset());
-    }
-
-    @DebugLog
-    @Subscribe
-    public void onRulesChanged(NeighborCountBasedRule rule) {
-        gameManager.getAutomaton().setRule(rule);
     }
 
     void onRestartGame() {

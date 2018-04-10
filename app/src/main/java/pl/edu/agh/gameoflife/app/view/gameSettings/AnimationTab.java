@@ -1,4 +1,4 @@
-package pl.edu.agh.gameoflife.app.view;
+package pl.edu.agh.gameoflife.app.view.gameSettings;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +10,12 @@ import android.view.ViewGroup;
 import pl.edu.agh.gameoflife.R;
 
 
-public class RulesTab extends Fragment {
+public class AnimationTab extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.game_rules_tab,container,false);
-
-        return v;
+        View view = inflater.inflate(R.layout.animation_tab,container,false);
+        return view;
     }
 }
