@@ -3,8 +3,6 @@ package pl.edu.agh.gameoflife.game.manager;
 import android.graphics.Point;
 
 import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
-import pl.edu.agh.gameoflife.game.grid.GridHandler;
-import pl.edu.agh.gameoflife.game.structures.Structure;
 import pl.edu.agh.gameoflife.game.visualization.cell.CellColors;
 
 public class GameParams {

@@ -10,7 +10,6 @@ import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.grid.EndlessGridHandler;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.grid.GridHandler;
-import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.rule.Rule;
 import pl.edu.agh.gameoflife.game.transformer.GridTransformer;
 import pl.edu.agh.gameoflife.game.transformer.ThreadedGridTransformer;
