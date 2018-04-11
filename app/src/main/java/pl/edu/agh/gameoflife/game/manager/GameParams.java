@@ -3,6 +3,8 @@ package pl.edu.agh.gameoflife.game.manager;
 import android.graphics.Point;
 
 import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
+import pl.edu.agh.gameoflife.game.grid.GridHandler;
+import pl.edu.agh.gameoflife.game.structures.Structure;
 import pl.edu.agh.gameoflife.game.visualization.cell.CellColors;
 
 public class GameParams {
@@ -24,6 +26,8 @@ public class GameParams {
     private float drawFocusY = 0;
     private boolean isScaleGestureInProgress = false;
     private boolean isZoom = false;
+    private String structure = "";
+    private boolean mapWrapping = true;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -143,6 +147,22 @@ public class GameParams {
 
     public void setDrawFocusY(float drawFocusY) {
         this.drawFocusY = drawFocusY;
+    }
+
+    public String getStructure() {
+        return structure;
+    }
+
+    public void setStructure(String structure) {
+        this.structure = structure;
+    }
+
+    public boolean getMapWrapping() {
+        return mapWrapping;
+    }
+
+    public void setMapWrapping(boolean mapWrapping) {
+        this.mapWrapping = mapWrapping;
     }
 
     public static final class Builder {

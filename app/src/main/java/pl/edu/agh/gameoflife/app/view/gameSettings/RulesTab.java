@@ -21,6 +21,7 @@ import pl.edu.agh.gameoflife.R;
 import pl.edu.agh.gameoflife.app.util.CellRuleWatcher;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 import pl.edu.agh.gameoflife.game.rule.RuleFactory;
+import pl.edu.agh.gameoflife.game.structures.CrabStructure;
 
 @EFragment
 public class RulesTab extends Fragment {
@@ -33,7 +34,7 @@ public class RulesTab extends Fragment {
     private SeekBar neighborhoodRadius;
     private TextView neighborhoodRadiusValue;
     private ToggleButton wrapping;
-    private Spinner Structures;
+    private Spinner structures;
 
     @ViewById
     Button apply, save, load;
@@ -45,11 +46,41 @@ public class RulesTab extends Fragment {
 
     private View setViews(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.game_rules_tab, container, false);
-
         setCellRule(view);
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
+        setWrapping(view);
+        setStructure(view);
+        setButtons(view);
         return view;
+    }
+
+    private void setButtons(View view) {
+        apply = (Button) view.findViewById(R.id.apply);
+        save = (Button) view.findViewById(R.id.save);
+        load = (Button) view.findViewById(R.id.load);
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setStructureInGameParams();
+                setWrappingInGameParams();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void setCellRule(View view) {
@@ -99,20 +130,20 @@ public class RulesTab extends Fragment {
         });
     }
 
-
-    @Click
-    void apply(){
-
+    private void setWrapping(View view) {
+        this.wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
     }
 
-    @Click
-    void save(){
-
+    private void setWrappingInGameParams() {
+        gameManager.getParams().setMapWrapping(wrapping.isChecked());
     }
 
-    @Click
-    void load(){
+    private void setStructure(View view) {
+        this.structures = (Spinner) view.findViewById(R.id.structures);
+    }
 
+    private void setStructureInGameParams() {
+        gameManager.getParams().setStructure(structures.getSelectedItem().toString());
     }
 
     private void changeRule(String rule) {

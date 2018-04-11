@@ -87,23 +87,28 @@
 
         <Button
             android:id="@+id/apply"
-            android:text="@string/apply_button"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="apply"
+            android:text="@string/apply_button" />
+
         <Button
             android:id="@+id/save"
-            android:text="@string/save_button"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="save"
+            android:text="@string/save_button" />
+
         <Button
             android:id="@+id/load"
-            android:text="@string/load_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:onClick="load"
+            android:text="@string/load_button" />
 
     </LinearLayout>
 
