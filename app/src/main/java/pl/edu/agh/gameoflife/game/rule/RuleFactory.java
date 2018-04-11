@@ -4,7 +4,7 @@ public class RuleFactory {
 
     public static Rule createRuleByName(String rule) {
 
-        if (rule == "Conways") {
+        if (rule.equals("Conways")) {
             return new ConwaysRule();
         }
         else if (rule.equals("Maze")) {
@@ -41,7 +41,7 @@ public class RuleFactory {
             return null;
     }
     public static String getRuleByName(String rule){
-        if (rule == "Conways") {
+        if (rule.equals("Conways")) {
             return new ConwaysRule().toString();
         }
         else if (rule.equals("Maze")) {
