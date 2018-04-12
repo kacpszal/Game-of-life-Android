@@ -19,6 +19,7 @@ import pl.edu.agh.gameoflife.R;
 import pl.edu.agh.gameoflife.app.util.CellRuleWatcher;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 import pl.edu.agh.gameoflife.game.rule.RuleFactory;
+import pl.edu.agh.gameoflife.game.structures.StructureFactory;
 
 @EFragment
 public class RulesTab extends Fragment {
@@ -44,13 +45,13 @@ public class RulesTab extends Fragment {
     private View setViews(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.game_rules_tab, container, false);
         this.neighborhood = (Spinner) view.findViewById(R.id.neighborhood);
-        this.wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
-        this.structures = (Spinner) view.findViewById(R.id.structures);
 
         setCellRule(view);
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
         setButtons(view);
+        setWrapping(view);
+        setStructure(view);
         setButtons(view);
         return view;
     }
@@ -68,7 +69,6 @@ public class RulesTab extends Fragment {
                 setCellRuleInGameParams();
                 setNeighborhoodInGameParams();
             }
-
         });
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +93,8 @@ public class RulesTab extends Fragment {
     }
 
     private void setNeighborhoodRadius(View view) {
-        this.neighborhoodRadius = (SeekBar) view.findViewById(R.id.neighborhoodRadius);
-        this.neighborhoodRadiusValue = (TextView) view.findViewById(R.id.valueSeekBar);
+        neighborhoodRadius = (SeekBar) view.findViewById(R.id.neighborhoodRadius);
+        neighborhoodRadiusValue = (TextView) view.findViewById(R.id.valueSeekBar);
 
         neighborhoodRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -109,7 +109,7 @@ public class RulesTab extends Fragment {
     }
 
     private void setSpecialCellRule(View view) {
-        this.specialCellRule = (Spinner) view.findViewById(R.id.special_cell_rule);
+        specialCellRule = (Spinner) view.findViewById(R.id.special_cell_rule);
         specialCellRule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -126,10 +126,20 @@ public class RulesTab extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        specialCellRule.setSelection(RuleFactory.getPositionByName(gameManager.getParams().getCellRule()));
+    }
+
+    private void setWrapping(View view) {
+        wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
     }
 
     private void setWrappingInGameParams() {
         gameManager.getParams().setMapWrapping(wrapping.isChecked());
+    }
+
+    private void setStructure(View view) {
+        structures = (Spinner) view.findViewById(R.id.structures);
+        structures.setSelection(StructureFactory.getPositionByName(gameManager.getParams().getStructure()));
     }
 
     private void setCellRuleInGameParams() {
@@ -152,6 +162,6 @@ public class RulesTab extends Fragment {
     }
 
     public void setGameManager(GameManager gameManager) {
-        this.gameManager = gameManager;
+        gameManager = gameManager;
     }
 }
