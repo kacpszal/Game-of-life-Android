@@ -27,6 +27,8 @@ public class GameParams {
     private boolean isScaleGestureInProgress = false;
     private boolean isZoom = false;
     private Rule cellRule = new ConwaysRule();
+    private String structure = "";
+    private boolean mapWrapping = true;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -146,6 +148,22 @@ public class GameParams {
 
     public void setDrawFocusY(float drawFocusY) {
         this.drawFocusY = drawFocusY;
+    }
+
+    public String getStructure() {
+        return structure;
+    }
+
+    public void setStructure(String structure) {
+        this.structure = structure;
+    }
+
+    public boolean getMapWrapping() {
+        return mapWrapping;
+    }
+
+    public void setMapWrapping(boolean mapWrapping) {
+        this.mapWrapping = mapWrapping;
     }
 
     public void setCellRule(Rule cellRule) {this.cellRule = cellRule;}

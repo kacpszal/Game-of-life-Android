@@ -36,7 +36,6 @@ public class RulesTab extends Fragment {
     private Button save;
     private Button load;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return setViews(inflater, container);
@@ -49,6 +48,9 @@ public class RulesTab extends Fragment {
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
         setButtons(view);
+        setWrapping(view);
+        setStructure(view);
+        setButtons(view);
         return view;
     }
 
@@ -60,6 +62,8 @@ public class RulesTab extends Fragment {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setStructureInGameParams();
+                setWrappingInGameParams();
             }
         });
 
@@ -77,6 +81,7 @@ public class RulesTab extends Fragment {
             }
         });
     }
+
 
     private void setCellRule(View view) {
         cellRule = (EditText) view.findViewById(R.id.cellRule);
@@ -125,7 +130,17 @@ public class RulesTab extends Fragment {
         });
     }
 
+    private void setWrapping(View view) {
+        this.wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
+    }
 
+    private void setWrappingInGameParams() {
+        gameManager.getParams().setMapWrapping(wrapping.isChecked());
+    }
+
+    private void setStructure(View view) {
+        this.structures = (Spinner) view.findViewById(R.id.structures);
+    }
     private void setCellRuleInGameParams() {
         if (cellRule.isEnabled() == true){
 
@@ -134,6 +149,12 @@ public class RulesTab extends Fragment {
             gameManager.getParams().setCellRule(RuleFactory.createRuleByName(specialCellRule.getSelectedItem().toString()));
         }
 
+    private void setStructureInGameParams() {
+        gameManager.getParams().setStructure(structures.getSelectedItem().toString());
+    }
+
+    private void changeRule(String rule) {
+        gameManager.getAutomaton().setRule(RuleFactory.createRuleByName(rule));
     }
 
     public void setGameManager(GameManager gameManager) {

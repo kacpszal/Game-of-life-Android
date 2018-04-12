@@ -12,6 +12,13 @@ import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
 import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
+import pl.edu.agh.gameoflife.game.structures.CrabStructure;
+import pl.edu.agh.gameoflife.game.structures.DakotaStructure;
+import pl.edu.agh.gameoflife.game.structures.FountainStructure;
+import pl.edu.agh.gameoflife.game.structures.GliderStructure;
+import pl.edu.agh.gameoflife.game.structures.GunStructure;
+import pl.edu.agh.gameoflife.game.structures.PenthadecathlonStructure;
+import pl.edu.agh.gameoflife.game.structures.SpaceshipStructure;
 import pl.edu.agh.gameoflife.game.structures.Structure;
 import pl.edu.agh.gameoflife.util.EventBus;
 
@@ -102,15 +109,23 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     protected void paint(MotionEvent event) {
         int x = Math.round(adjustX(event.getX()) / params.getCellSizeInPixels());
         int y = Math.round(adjustY(event.getY()) / params.getCellSizeInPixels());
-        EventBus.getInstance().post(new PaintWithBrush(x, y));
-        // TODO: Implement structure change
-        //paintStructure(new GunStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
-        //paintStructure(new GliderStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
-        //paintStructure(new PenthadecathlonStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
-        //paintStructure(new DakotaStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
-        //paintStructure(new SpaceshipStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
-        //paintStructure(new FountainStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
-        //paintStructure(new CrabStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        if(params.getStructure().equals("")) {
+            EventBus.getInstance().post(new PaintWithBrush(x, y));
+        } else if(params.getStructure().equals("Crab")) {
+            paintStructure(new CrabStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        } else if(params.getStructure().equals("Dakota")) {
+            paintStructure(new DakotaStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        } else if(params.getStructure().equals("Fountain")) {
+            paintStructure(new FountainStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        } else if(params.getStructure().equals("Glider")) {
+            paintStructure(new GliderStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        } else if(params.getStructure().equals("Gun")) {
+            paintStructure(new GunStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        } else if(params.getStructure().equals("Penthadecathlon")) {
+            paintStructure(new PenthadecathlonStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        } else if(params.getStructure().equals("Spaceship")) {
+            paintStructure(new SpaceshipStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));
+        }
     }
 
     protected void paintStructure(Structure structure) {
