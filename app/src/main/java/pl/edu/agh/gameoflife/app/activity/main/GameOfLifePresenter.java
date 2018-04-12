@@ -32,6 +32,7 @@ import static android.view.View.VISIBLE;
 @EBean
 public class GameOfLifePresenter {
     GameManager gameManager;
+    GameParams gameParams;
 
     @RootContext
     GameOfLifeActivity activity;
@@ -61,11 +62,12 @@ public class GameOfLifePresenter {
     }
 
     void startGame() {
+        gameParams = getGameParams();
         gameManager = new GameManager(
                 activity.gameState,
                 activity.automatonView,
-                new GameOfLifeAutomatonFactory(),
-                getGameParams()
+                new GameOfLifeAutomatonFactory(gameParams),
+                gameParams
         );
 
         gameManager.createGame();

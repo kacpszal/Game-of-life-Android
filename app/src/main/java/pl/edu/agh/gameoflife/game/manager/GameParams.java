@@ -3,8 +3,6 @@ package pl.edu.agh.gameoflife.game.manager;
 import android.graphics.Point;
 
 import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
-import pl.edu.agh.gameoflife.game.rule.ConwaysRule;
-import pl.edu.agh.gameoflife.game.rule.Rule;
 import pl.edu.agh.gameoflife.game.visualization.cell.CellColors;
 
 public class GameParams {
@@ -26,8 +24,8 @@ public class GameParams {
     private float drawFocusY = 0;
     private boolean isScaleGestureInProgress = false;
     private boolean isZoom = false;
-    private Rule cellRule = new ConwaysRule();
-    private String structure = "";
+    private String cellRule = "Conways";
+    private String structure = "Point";
     private boolean mapWrapping = true;
 
     private GameParams(Builder builder) {
@@ -166,7 +164,9 @@ public class GameParams {
         this.mapWrapping = mapWrapping;
     }
 
-    public void setCellRule(Rule cellRule) {this.cellRule = cellRule;}
+    public void setCellRule(String cellRule) { this.cellRule = cellRule;}
+
+    public String getCellRule() { return cellRule; }
 
     public static final class Builder {
         private int screenOrientation;

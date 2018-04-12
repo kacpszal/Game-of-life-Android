@@ -10,7 +10,9 @@ import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.grid.EndlessGridHandler;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.grid.GridHandler;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.rule.Rule;
+import pl.edu.agh.gameoflife.game.rule.RuleFactory;
 import pl.edu.agh.gameoflife.game.transformer.GridTransformer;
 import pl.edu.agh.gameoflife.game.transformer.ThreadedGridTransformer;
 
@@ -22,12 +24,14 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     protected int gridSizeY;
     GridHandler<T> gridHandler;
     Rule<T> rule;
+    GameParams gameParams;
 
-    public AbstractCellularAutomaton(int gridSizeX, int gridSizeY) {
+    public AbstractCellularAutomaton(int gridSizeX, int gridSizeY, GameParams gameParams) {
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;
         this.gridHandler = getGridHandler();
         this.gridTransformer = getGridTransformer();
+        this.gameParams = gameParams;
         this.rule =  createRule();
     }
 
@@ -68,6 +72,11 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     @Override
     public void setRule(Rule<T> rule) {
         this.rule = rule;
+    }
+
+    @Override
+    public void changeRule() {
+        this.rule = RuleFactory.createRuleByName(gameParams.getCellRule());
     }
 
     @Override

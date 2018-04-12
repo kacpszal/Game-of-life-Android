@@ -109,7 +109,7 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     protected void paint(MotionEvent event) {
         int x = Math.round(adjustX(event.getX()) / params.getCellSizeInPixels());
         int y = Math.round(adjustY(event.getY()) / params.getCellSizeInPixels());
-        if(params.getStructure().equals("")) {
+        if(params.getStructure().equals("Point")) {
             EventBus.getInstance().post(new PaintWithBrush(x, y));
         } else if(params.getStructure().equals("Crab")) {
             paintStructure(new CrabStructure(x, y, params.getGridSizeX(), params.getGridSizeY()));

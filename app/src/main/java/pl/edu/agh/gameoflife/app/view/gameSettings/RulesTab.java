@@ -64,6 +64,7 @@ public class RulesTab extends Fragment {
             public void onClick(View v) {
                 setStructureInGameParams();
                 setWrappingInGameParams();
+                setCellRuleInGameParams();
             }
         });
 
@@ -97,16 +98,10 @@ public class RulesTab extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 neighborhoodRadiusValue.setText(String.valueOf(progress));
             }
-
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
+            public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
     }
 
@@ -141,21 +136,20 @@ public class RulesTab extends Fragment {
     private void setStructure(View view) {
         this.structures = (Spinner) view.findViewById(R.id.structures);
     }
-    private void setCellRuleInGameParams() {
-        if (cellRule.isEnabled() == true){
 
+    private void setCellRuleInGameParams() {
+        if (cellRule.isEnabled() == true) {
+
+        } else {
+            gameManager.getParams().setCellRule(specialCellRule.getSelectedItem().toString());
+            gameManager.getAutomaton().changeRule();
         }
-        else{
-            gameManager.getParams().setCellRule(RuleFactory.createRuleByName(specialCellRule.getSelectedItem().toString()));
-        }
+    }
 
     private void setStructureInGameParams() {
         gameManager.getParams().setStructure(structures.getSelectedItem().toString());
     }
 
-    private void changeRule(String rule) {
-        gameManager.getAutomaton().setRule(RuleFactory.createRuleByName(rule));
-    }
 
     public void setGameManager(GameManager gameManager) {
         this.gameManager = gameManager;

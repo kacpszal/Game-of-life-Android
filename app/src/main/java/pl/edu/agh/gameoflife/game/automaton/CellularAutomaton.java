@@ -22,4 +22,5 @@ public interface CellularAutomaton<T extends Cell> extends Parcelable, Paintable
     void setState(Grid<T> grid);
     Rule<T> getRule();
     void setRule(Rule<T> rule);
+    void changeRule();
 }
