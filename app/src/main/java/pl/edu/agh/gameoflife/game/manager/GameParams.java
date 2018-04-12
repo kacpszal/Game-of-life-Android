@@ -27,6 +27,7 @@ public class GameParams {
     private String cellRule = "Conways";
     private String structure = "Point";
     private boolean mapWrapping = true;
+    private String cellNeighboorhood = "Moore";
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -167,6 +168,12 @@ public class GameParams {
     public void setCellRule(String cellRule) { this.cellRule = cellRule;}
 
     public String getCellRule() { return cellRule; }
+
+    public String getCellNeighboorhood() {
+        return cellNeighboorhood;
+    }
+
+    public void setCellNeighboorhood(String cellNeighboorhood) { this.cellNeighboorhood = cellNeighboorhood; }
 
     public static final class Builder {
         private int screenOrientation;

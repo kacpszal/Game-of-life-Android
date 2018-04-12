@@ -4,6 +4,7 @@ import android.os.Parcelable;
 
 import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.grid.Grid;
+import pl.edu.agh.gameoflife.game.grid.GridHandler;
 import pl.edu.agh.gameoflife.game.rule.Rule;
 import pl.edu.agh.gameoflife.game.visualization.brush.Paintable;
 
@@ -22,5 +23,6 @@ public interface CellularAutomaton<T extends Cell> extends Parcelable, Paintable
     void setState(Grid<T> grid);
     Rule<T> getRule();
     void setRule(Rule<T> rule);
+    GridHandler getGridHandler();
     void changeRule();
 }

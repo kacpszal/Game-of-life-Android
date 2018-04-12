@@ -11,14 +11,12 @@ import android.view.SurfaceHolder;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
 import pl.edu.agh.gameoflife.game.event.Draw;
-import pl.edu.agh.gameoflife.game.event.Load;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.event.Pause;
 import pl.edu.agh.gameoflife.game.event.Reset;
@@ -32,9 +30,7 @@ import pl.edu.agh.gameoflife.game.visualization.brush.Brush;
 import pl.edu.agh.gameoflife.game.visualization.brush.DefaultBlockBrush;
 import pl.edu.agh.gameoflife.game.visualization.cell.CellColors;
 import pl.edu.agh.gameoflife.persistence.DataManager;
-import pl.edu.agh.gameoflife.persistence.GridDao;
 import pl.edu.agh.gameoflife.persistence.GridDaoRepository;
-import pl.edu.agh.gameoflife.persistence.GridDaoToGrid;
 import pl.edu.agh.gameoflife.persistence.GridToGridDao;
 import pl.edu.agh.gameoflife.util.EventBus;
 
@@ -145,7 +141,7 @@ class AutomatonThread extends Thread {
         shouldRestart = true;
     }
 
-    @Subscribe
+  /*  @Subscribe
     synchronized public void onEvent(Load load) {
         //should be loaded from dialog
         List<GridDao> gridDaos = GridDaoRepository.getGrids(context);
@@ -159,7 +155,7 @@ class AutomatonThread extends Thread {
             automaton.fillFromGrid(grids.get(0));
         }
 
-    }
+    }*/
 
     @Subscribe
     synchronized public void onEvent(Draw event) {

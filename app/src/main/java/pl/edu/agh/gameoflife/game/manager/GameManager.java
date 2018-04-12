@@ -26,8 +26,7 @@ public class GameManager {
 
     private CellularAutomaton createAutomaton(CellularAutomatonFactory factory, GameParams params) {
         CellularAutomaton<?> automaton = factory.create(
-                params.getGridSizeX(),
-                params.getGridSizeY()
+                params
         );
 
         automaton.randomFill(params.getGridCharacteristic());

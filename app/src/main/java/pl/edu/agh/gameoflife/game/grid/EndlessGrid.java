@@ -9,11 +9,14 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.Overseer;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.neighborhood.CellNeighborhood;
 import pl.edu.agh.gameoflife.game.neighborhood.MooreNeighborhood;
+import pl.edu.agh.gameoflife.game.neighborhood.VonNeumannNeighborhood;
 import pl.edu.agh.gameoflife.util.EventBus;
 
 public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
+
     public static final Creator<EndlessGrid> CREATOR = new Creator<EndlessGrid>() {
         public EndlessGrid createFromParcel(Parcel source) {
             return new EndlessGrid(source);
@@ -23,27 +26,29 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
             return new EndlessGrid[size];
         }
     };
+
     protected final int sizeX;
     protected final int sizeY;
     protected final T[][] cells;
     protected final Set<Long> cellIds;
-    protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this);
-    // TODO: Implement neighborhood change
-    //protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this, 2);
-    //protected CellNeighborhood cellNeighborhood = new VonNeumannNeighborhood(this);
+    protected GameParams gameParams;
+    protected CellNeighborhood cellNeighborhood;
     private final CellFactory<T> cellFactory;
 
-    public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
+
+    public EndlessGrid(int sizeX, int sizeY, GameParams gameParams, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.cellFactory = cellFactory;
         cells = (T[][]) new Cell[sizeY][sizeX];
         cellIds = new HashSet<>(sizeY * sizeX);
+        this.gameParams = gameParams;
+        cellNeighborhood = createNeighboorhood(gameParams.getCellNeighboorhood());
         createCells(sizeX, sizeY, cellFactory);
     }
 
-    public EndlessGrid(Grid<T> other, CellFactory<T> cellFactory) {
-        this(other.getSizeX(), other.getSizeY(), cellFactory);
+    public EndlessGrid(Grid<T> other, CellFactory<T> cellFactory, GameParams gameParams) {
+        this(other.getSizeX(), other.getSizeY(), gameParams, cellFactory);
         copyCells(other);
     }
 
@@ -208,5 +213,19 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
                 dest.writeIntArray(cellFactory.flatten(cells[j][i]));
             }
         }
+    }
+
+    private CellNeighborhood createNeighboorhood(String cellNeighborhood) {
+        if( cellNeighborhood.equals("Moore")){
+            return new MooreNeighborhood(this);
+        }
+        else{
+            return new VonNeumannNeighborhood(this);
+        }
+    }
+
+    @Override
+    public void changeCellNeighborhood(String neighborhood) {
+        this.cellNeighborhood = createNeighboorhood(neighborhood);
     }
 }

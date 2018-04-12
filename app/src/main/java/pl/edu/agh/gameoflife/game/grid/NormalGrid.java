@@ -46,6 +46,7 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
         copyCells(other);
     }
 
+
     protected NormalGrid(Parcel in) {
         this.cellFactory = (CellFactory<T>) in.readSerializable();
         this.sizeX = in.readInt();
@@ -186,5 +187,10 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
                 dest.writeIntArray(cellFactory.flatten(cells[j][i]));
             }
         }
+    }
+
+    @Override
+    public void changeCellNeighborhood(String neighborhood) {
+        // TODO: implement when wrapping done
     }
 }

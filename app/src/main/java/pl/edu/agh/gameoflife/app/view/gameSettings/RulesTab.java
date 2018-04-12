@@ -43,13 +43,14 @@ public class RulesTab extends Fragment {
 
     private View setViews(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.game_rules_tab, container, false);
+        this.neighborhood = (Spinner) view.findViewById(R.id.neighborhood);
+        this.wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
+        this.structures = (Spinner) view.findViewById(R.id.structures);
 
         setCellRule(view);
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
         setButtons(view);
-        setWrapping(view);
-        setStructure(view);
         setButtons(view);
         return view;
     }
@@ -65,7 +66,9 @@ public class RulesTab extends Fragment {
                 setStructureInGameParams();
                 setWrappingInGameParams();
                 setCellRuleInGameParams();
+                setNeighborhoodInGameParams();
             }
+
         });
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -125,16 +128,8 @@ public class RulesTab extends Fragment {
         });
     }
 
-    private void setWrapping(View view) {
-        this.wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
-    }
-
     private void setWrappingInGameParams() {
         gameManager.getParams().setMapWrapping(wrapping.isChecked());
-    }
-
-    private void setStructure(View view) {
-        this.structures = (Spinner) view.findViewById(R.id.structures);
     }
 
     private void setCellRuleInGameParams() {
@@ -150,6 +145,11 @@ public class RulesTab extends Fragment {
         gameManager.getParams().setStructure(structures.getSelectedItem().toString());
     }
 
+    private void setNeighborhoodInGameParams() {
+        String neighbor = neighborhood.getSelectedItem().toString();
+        gameManager.getParams().setCellNeighboorhood(neighbor);
+        gameManager.getAutomaton().getGridHandler().getCurrent().changeCellNeighborhood(neighbor);
+    }
 
     public void setGameManager(GameManager gameManager) {
         this.gameManager = gameManager;

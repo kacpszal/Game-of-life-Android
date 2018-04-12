@@ -66,7 +66,7 @@ public class GameOfLifePresenter {
         gameManager = new GameManager(
                 activity.gameState,
                 activity.automatonView,
-                new GameOfLifeAutomatonFactory(gameParams),
+                new GameOfLifeAutomatonFactory(),
                 gameParams
         );
 

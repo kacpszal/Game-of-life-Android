@@ -11,8 +11,8 @@ import pl.edu.agh.gameoflife.game.rule.RuleFactory;
 
 public class GameOfLifeAutomaton extends AbstractCellularAutomaton<SimpleCell> {
 
-    public GameOfLifeAutomaton(int gridSizeX, int gridSizeY, GameParams gameParams) {
-        super(gridSizeX, gridSizeY, gameParams);
+    public GameOfLifeAutomaton(GameParams gameParams) {
+        super(gameParams);
     }
 
     public GameOfLifeAutomaton(Parcel source) {

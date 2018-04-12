@@ -9,4 +9,5 @@ public interface Grid<T extends Cell> extends Parcelable {
     int getSizeY();
     T getCell(int x, int y);
     void putCell(T cell);
+    void changeCellNeighborhood(String neighborhood);
 }
