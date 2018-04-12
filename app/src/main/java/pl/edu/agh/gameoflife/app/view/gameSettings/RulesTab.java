@@ -13,9 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 
 import pl.edu.agh.gameoflife.R;
 import pl.edu.agh.gameoflife.app.util.CellRuleWatcher;
@@ -33,10 +31,11 @@ public class RulesTab extends Fragment {
     private SeekBar neighborhoodRadius;
     private TextView neighborhoodRadiusValue;
     private ToggleButton wrapping;
-    private Spinner Structures;
+    private Spinner structures;
+    private Button apply;
+    private Button save;
+    private Button load;
 
-    @ViewById
-    Button apply, save, load;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +48,34 @@ public class RulesTab extends Fragment {
         setCellRule(view);
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
+        setButtons(view);
         return view;
+    }
+
+    private void setButtons(View view) {
+        apply = (Button) view.findViewById(R.id.apply);
+        save = (Button) view.findViewById(R.id.save);
+        load = (Button) view.findViewById(R.id.load);
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void setCellRule(View view) {
@@ -100,23 +126,14 @@ public class RulesTab extends Fragment {
     }
 
 
-    @Click
-    void apply(){
+    private void setCellRuleInGameParams() {
+        if (cellRule.isEnabled() == true){
 
-    }
+        }
+        else{
+            gameManager.getParams().setCellRule(RuleFactory.createRuleByName(specialCellRule.getSelectedItem().toString()));
+        }
 
-    @Click
-    void save(){
-
-    }
-
-    @Click
-    void load(){
-
-    }
-
-    private void changeRule(String rule) {
-        gameManager.getAutomaton().setRule(RuleFactory.createRuleByName(rule));
     }
 
     public void setGameManager(GameManager gameManager) {

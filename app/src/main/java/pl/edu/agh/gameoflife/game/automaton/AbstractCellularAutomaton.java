@@ -28,7 +28,7 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
         this.gridSizeY = gridSizeY;
         this.gridHandler = getGridHandler();
         this.gridTransformer = getGridTransformer();
-        this.rule = createRule();
+        this.rule =  createRule();
     }
 
     protected AbstractCellularAutomaton(Parcel in) {

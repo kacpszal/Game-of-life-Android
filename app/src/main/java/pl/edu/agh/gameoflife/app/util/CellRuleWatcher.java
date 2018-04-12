@@ -11,7 +11,7 @@ public class CellRuleWatcher implements TextWatcher {
 
     private EditText field;
     public Boolean fieldValid = false;
-    private final String regex = "[0-9]{1,9}/[0-9]{1,9}";
+    private final String regex = "[0-8]{0,9}/[0-8]{0,9}";
 
 
     public CellRuleWatcher(EditText cellRule) {

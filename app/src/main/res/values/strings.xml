@@ -32,6 +32,7 @@
         <item>Assimilation</item>
     </string-array>
     <string-array name="structures">
+        <item>Point</item>
         <item>Crab</item>
         <item>Dakota</item>
         <item>Fountain</item>
