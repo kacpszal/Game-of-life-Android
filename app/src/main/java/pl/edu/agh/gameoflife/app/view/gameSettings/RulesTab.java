@@ -18,6 +18,7 @@ import org.androidannotations.annotations.EFragment;
 import pl.edu.agh.gameoflife.R;
 import pl.edu.agh.gameoflife.app.util.CellRuleWatcher;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
+import pl.edu.agh.gameoflife.game.neighborhood.NeighborhoodFactory;
 import pl.edu.agh.gameoflife.game.rule.RuleFactory;
 import pl.edu.agh.gameoflife.game.structures.StructureFactory;
 
@@ -39,13 +40,9 @@ public class RulesTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return setViews(inflater, container);
-    }
-
-    private View setViews(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.game_rules_tab, container, false);
-        this.neighborhood = (Spinner) view.findViewById(R.id.neighborhood);
 
+        setNeighborhood(view);
         setCellRule(view);
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
@@ -54,6 +51,11 @@ public class RulesTab extends Fragment {
         setStructure(view);
         setButtons(view);
         return view;
+    }
+
+    private void setNeighborhood(View view) {
+        this.neighborhood = (Spinner) view.findViewById(R.id.neighborhood);
+        neighborhood.setSelection(NeighborhoodFactory.getPositionByName(gameManager.getParams().getCellNeighboorhood()));
     }
 
     private void setButtons(View view) {
@@ -73,19 +75,14 @@ public class RulesTab extends Fragment {
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-            }
+            public void onClick(View v) {}
         });
 
         load.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-            }
+            public void onClick(View v) {}
         });
     }
-
 
     private void setCellRule(View view) {
         cellRule = (EditText) view.findViewById(R.id.cellRule);
@@ -162,6 +159,6 @@ public class RulesTab extends Fragment {
     }
 
     public void setGameManager(GameManager gameManager) {
-        gameManager = gameManager;
+        this.gameManager = gameManager;
     }
 }
