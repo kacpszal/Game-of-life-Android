@@ -1,7 +1,7 @@
 package pl.edu.agh.gameoflife.persistence;
 
 import pl.edu.agh.gameoflife.game.cell.CellFromGridDaoFactory;
-import pl.edu.agh.gameoflife.game.grid.EndlessGrid;
+import pl.edu.agh.gameoflife.game.grid.NormalGrid;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
 
@@ -12,6 +12,6 @@ import pl.edu.agh.gameoflife.game.manager.GameParams;
 public class GridDaoToGrid {
 
     public static Grid parse(GridDao gridDao, GameParams gameParams) {
-        return new EndlessGrid(gridDao.getSizeX(), gridDao.getSizeY(), gameParams, new CellFromGridDaoFactory(gridDao));
+        return new NormalGrid(gridDao.getSizeX(), gridDao.getSizeY(), gameParams, new CellFromGridDaoFactory(gridDao));
     }
 }

@@ -7,18 +7,21 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.SimpleCell;
 import pl.edu.agh.gameoflife.game.cell.SimpleCellFactory;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.test.RobolectricTest;
 
 import static org.fest.assertions.api.Assertions.*;
 
-public class EndlessGridTest extends RobolectricTest {
-    EndlessGrid<SimpleCell> grid;
+public class NormalGridTest extends RobolectricTest {
+    NormalGrid<SimpleCell> grid;
+    GameParams gameParams;
     CellFactory<SimpleCell> cellFactory;
 
     @Before
     public void setup() {
         cellFactory = new SimpleCellFactory();
-        grid = new EndlessGrid<>(3, 6, cellFactory);
+        gameParams = new GameParams.Builder(null, 0).build();
+        grid = new NormalGrid<>(3, 6, gameParams, cellFactory);
     }
 
     @Test
@@ -60,19 +63,19 @@ public class EndlessGridTest extends RobolectricTest {
 
     @Test
     public void testEquals() {
-        EndlessGrid other = null;
+        NormalGrid other = null;
 
         assertThat(grid).isEqualTo(grid);
         assertThat(grid.equals(other)).isFalse();
         assertThat(grid.equals(this)).isFalse();
 
-        other = new EndlessGrid<>(1, 6, cellFactory);
+        other = new NormalGrid<>(1, 6, gameParams, cellFactory);
         assertThat(grid).isNotEqualTo(other);
 
-        other = new EndlessGrid<>(3, 1, cellFactory);
+        other = new NormalGrid<>(3, 1, gameParams, cellFactory);
         assertThat(grid).isNotEqualTo(other);
 
-        other = new EndlessGrid<>(3, 6, cellFactory);
+        other = new NormalGrid<>(3, 6, gameParams, cellFactory);
         other.getCell(1, 1).setState(Cell.STATE_ALIVE);
         assertThat(grid).isNotEqualTo(other);
 

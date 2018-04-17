@@ -13,6 +13,7 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.SimpleCell;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
 import pl.edu.agh.gameoflife.game.grid.Grid;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.test.RobolectricTest;
 import pl.edu.agh.gameoflife.util.EventBus;
 
@@ -21,10 +22,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class GameOfLifeAutomatonTest extends RobolectricTest {
     TestAutomaton automaton;
     List<CellStateChange> cellStateChanges;
+    GameParams gameParams;
 
     @Before
     public void setup() {
-        automaton = new TestAutomaton(5, 5);
+        gameParams = new GameParams.Builder(null, 0).
+                withGridSizeX(5).
+                withGridSizeY(5).
+                build();
+        automaton = new TestAutomaton(gameParams);
         cellStateChanges = new ArrayList<>();
         EventBus.getInstance().register(this);
     }
@@ -86,8 +92,8 @@ public class GameOfLifeAutomatonTest extends RobolectricTest {
     }
 
     private static class TestAutomaton extends GameOfLifeAutomaton {
-        public TestAutomaton(int gridSizeX, int gridSizeY) {
-            super(gridSizeX, gridSizeY);
+        public TestAutomaton(GameParams gameParams) {
+            super(gameParams);
         }
 
         public final void setCurrentState(Grid<SimpleCell> grid) {

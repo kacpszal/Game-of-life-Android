@@ -7,20 +7,23 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.SimpleCell;
 import pl.edu.agh.gameoflife.game.cell.SimpleCellFactory;
-import pl.edu.agh.gameoflife.game.grid.EndlessGrid;
+import pl.edu.agh.gameoflife.game.grid.NormalGrid;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.test.RobolectricTest;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class MooreNeighborhoodTest extends RobolectricTest {
-    EndlessGrid<SimpleCell> grid;
+    NormalGrid<SimpleCell> grid;
     CellFactory<SimpleCell> cellFactory;
     AbstractCellNeighborhood neighborhood;
+    GameParams gameParams;
 
     @Before
     public void setup() {
         cellFactory = new SimpleCellFactory();
-        grid = new EndlessGrid<>(10, 10, cellFactory);
+        gameParams = new GameParams.Builder(null, 0).build();
+        grid = new NormalGrid<>(10, 10, gameParams, cellFactory);
     }
 
     @Test

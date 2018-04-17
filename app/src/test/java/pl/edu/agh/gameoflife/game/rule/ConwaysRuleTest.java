@@ -7,8 +7,9 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.SimpleCell;
 import pl.edu.agh.gameoflife.game.cell.SimpleCellFactory;
-import pl.edu.agh.gameoflife.game.grid.EndlessGrid;
+import pl.edu.agh.gameoflife.game.grid.NormalGrid;
 import pl.edu.agh.gameoflife.game.grid.Grid;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.transformer.GridTransformer;
 import pl.edu.agh.gameoflife.game.transformer.ThreadedGridTransformer;
 import pl.edu.agh.gameoflife.test.RobolectricTest;
@@ -19,12 +20,14 @@ public class ConwaysRuleTest extends RobolectricTest {
     CellFactory<SimpleCell> cellFactory;
     GridTransformer<SimpleCell> transformer;
     Rule<SimpleCell> rule;
+    GameParams gameParams;
 
     @Before
     public void setup() {
         cellFactory = new SimpleCellFactory();
         transformer = new ThreadedGridTransformer<>();
         rule = new ConwaysRule();
+        gameParams = new GameParams.Builder(null, 0).build();
     }
 
     @Test
@@ -60,7 +63,7 @@ public class ConwaysRuleTest extends RobolectricTest {
     }
 
     private Grid<SimpleCell> createEmptyGrid() {
-        return new EndlessGrid<>(5, 5, cellFactory);
+        return new NormalGrid<>(5, 5, gameParams, cellFactory);
     }
 
     private Grid<SimpleCell> horizontalOscillator() {

@@ -7,7 +7,7 @@ import java.util.Random;
 import hugo.weaving.DebugLog;
 import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
-import pl.edu.agh.gameoflife.game.grid.EndlessGridHandler;
+import pl.edu.agh.gameoflife.game.grid.NormalGridHandler;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.grid.GridHandler;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
@@ -55,13 +55,9 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
         return this.gridHandler;
     }
 
-    public EndlessGridHandler<T> setGridHandler() {
-        return new EndlessGridHandler<T>(gridSizeX, gridSizeY, gameParams, getFactory());
+    public NormalGridHandler<T> setGridHandler() {
+        return new NormalGridHandler<>(gridSizeX, gridSizeY, gameParams, getFactory());
     }
-
-    /*protected NormalGridHandler<T> getGridHandler() {
-        return new NormalGridHandler<T>(gridSizeX, gridSizeY, getFactory());
-    }*/
 
     protected GridTransformer<T> getGridTransformer() {
         return new ThreadedGridTransformer<T>();

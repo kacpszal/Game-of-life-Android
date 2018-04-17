@@ -9,11 +9,14 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.cell.CellFactory;
 import pl.edu.agh.gameoflife.game.cell.Overseer;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.neighborhood.CellNeighborhood;
 import pl.edu.agh.gameoflife.game.neighborhood.MooreNeighborhood;
+import pl.edu.agh.gameoflife.game.neighborhood.VonNeumannNeighborhood;
 import pl.edu.agh.gameoflife.util.EventBus;
 
-public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
+public class NormalGrid<T extends Cell> implements Grid<T>, Overseer {
+
     public static final Creator<NormalGrid> CREATOR = new Creator<NormalGrid>() {
         public NormalGrid createFromParcel(Parcel source) {
             return new NormalGrid(source);
@@ -23,29 +26,31 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
             return new NormalGrid[size];
         }
     };
+
     protected final int sizeX;
     protected final int sizeY;
     protected final T[][] cells;
     protected final Set<Long> cellIds;
-    protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this);
-    //protected CellNeighborhood cellNeighborhood = new MooreNeighborhood(this, 2);
-    //protected CellNeighborhood cellNeighborhood = new VonNeumannNeighborhood(this);
+    protected GameParams gameParams;
+    protected CellNeighborhood cellNeighborhood;
     private final CellFactory<T> cellFactory;
 
-    public NormalGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
+
+    public NormalGrid(int sizeX, int sizeY, GameParams gameParams, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.cellFactory = cellFactory;
         cells = (T[][]) new Cell[sizeY][sizeX];
         cellIds = new HashSet<>(sizeY * sizeX);
+        this.gameParams = gameParams;
+        cellNeighborhood = createNeighboorhood(gameParams.getCellNeighboorhood());
         createCells(sizeX, sizeY, cellFactory);
     }
 
-    public NormalGrid(Grid<T> other, CellFactory<T> cellFactory) {
-        this(other.getSizeX(), other.getSizeY(), cellFactory);
+    public NormalGrid(Grid<T> other, CellFactory<T> cellFactory, GameParams gameParams) {
+        this(other.getSizeX(), other.getSizeY(), gameParams, cellFactory);
         copyCells(other);
     }
-
 
     protected NormalGrid(Parcel in) {
         this.cellFactory = (CellFactory<T>) in.readSerializable();
@@ -85,8 +90,15 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
 
     @Override
     public void putCell(T cell) {
-        int y = cell.getY();
-        int x = cell.getX();
+        int y;
+        int x;
+        if(gameParams.getMapWrapping()) {
+            y = normalizeY(cell.getY());
+            x = normalizeX(cell.getX());
+        } else {
+            y = cell.getY();
+            x = cell.getX();
+        }
         maintainIds(cell, x, y);
         cell.setOverseer(this);
 
@@ -126,10 +138,39 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
 
     @Override
     public T getCell(int x, int y) {
+        if(gameParams.getMapWrapping()) {
+            return cells[normalizeY(y)][normalizeX(x)];
+        }
+
         if(x < 0 || x >= sizeX || y < 0 || y >= sizeY) {
             return null;
         }
-        return (T) cells[y][x];
+
+        return cells[y][x];
+    }
+
+    public int normalizeY(int y) {
+        while (y < 0) {
+            y += sizeY;
+        }
+
+        while (y >= sizeY) {
+            y -= sizeY;
+        }
+
+        return y;
+    }
+
+    public int normalizeX(int x) {
+        while (x < 0) {
+            x += sizeX;
+        }
+
+        while (x >= sizeX) {
+            x -= sizeX;
+        }
+
+        return x;
     }
 
     @Override
@@ -148,16 +189,12 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
                 Cell otherCell = that.getCell(i, j);
 
                 if (!otherCell.equals(cell)) {
-                    debugOnCellsNotEqual(cell, otherCell);
                     return false;
                 }
             }
         }
 
         return true;
-    }
-
-    protected void debugOnCellsNotEqual(Cell cell, Cell otherCell) {
     }
 
     @Override
@@ -179,7 +216,7 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
         dest.writeInt(this.sizeX);
         dest.writeInt(this.sizeY);
 
-        final T dummy = (T) cells[0][0];
+        final T dummy = cells[0][0];
         dest.writeInt(cellFactory.flatten(dummy).length);
 
         for (int j = 0; j < getSizeY(); j++) {
@@ -189,8 +226,17 @@ public class NormalGrid <T extends Cell> implements Grid<T>, Overseer {
         }
     }
 
+    private CellNeighborhood createNeighboorhood(String cellNeighborhood) {
+        if( cellNeighborhood.equals("Moore")){
+            return new MooreNeighborhood(this);
+        }
+        else{
+            return new VonNeumannNeighborhood(this);
+        }
+    }
+
     @Override
     public void changeCellNeighborhood(String neighborhood) {
-        // TODO: implement when wrapping done
+        this.cellNeighborhood = createNeighboorhood(neighborhood);
     }
 }
