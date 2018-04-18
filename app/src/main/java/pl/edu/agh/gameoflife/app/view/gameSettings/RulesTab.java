@@ -97,13 +97,16 @@ public class RulesTab extends Fragment {
         neighborhoodRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                neighborhoodRadiusValue.setText(String.valueOf(progress+1));
+                neighborhoodRadiusValue.setText(String.valueOf(progress + 1));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+
+        neighborhoodRadiusValue.setText(String.valueOf(gameManager.getParams().getRadius()));
+        neighborhoodRadius.setProgress(gameManager.getParams().getRadius() - 1);
     }
 
     private void setSpecialCellRule(View view) {
