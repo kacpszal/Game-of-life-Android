@@ -1,5 +1,7 @@
 package pl.edu.agh.gameoflife.game.neighborhood;
 
+import android.graphics.Point;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class MooreNeighborhoodTest extends RobolectricTest {
     @Before
     public void setup() {
         cellFactory = new SimpleCellFactory();
-        gameParams = new GameParams.Builder(null, 0).build();
+        gameParams = new GameParams.Builder(new Point(), 1).build();
         grid = new NormalGrid<>(10, 10, gameParams, cellFactory);
     }
 

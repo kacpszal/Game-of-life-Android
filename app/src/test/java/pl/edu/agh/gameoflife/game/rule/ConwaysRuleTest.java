@@ -1,5 +1,7 @@
 package pl.edu.agh.gameoflife.game.rule;
 
+import android.graphics.Point;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +29,7 @@ public class ConwaysRuleTest extends RobolectricTest {
         cellFactory = new SimpleCellFactory();
         transformer = new ThreadedGridTransformer<>();
         rule = new ConwaysRule();
-        gameParams = new GameParams.Builder(null, 0).build();
+        gameParams = new GameParams.Builder(new Point(), 1).build();
     }
 
     @Test

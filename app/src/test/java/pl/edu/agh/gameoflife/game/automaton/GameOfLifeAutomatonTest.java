@@ -1,5 +1,7 @@
 package pl.edu.agh.gameoflife.game.automaton;
 
+import android.graphics.Point;
+
 import com.squareup.otto.Subscribe;
 
 import org.junit.After;
@@ -26,7 +28,7 @@ public class GameOfLifeAutomatonTest extends RobolectricTest {
 
     @Before
     public void setup() {
-        gameParams = new GameParams.Builder(null, 0).
+        gameParams = new GameParams.Builder(new Point(), 1).
                 withGridSizeX(5).
                 withGridSizeY(5).
                 build();

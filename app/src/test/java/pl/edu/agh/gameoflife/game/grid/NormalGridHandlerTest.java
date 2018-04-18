@@ -1,5 +1,7 @@
 package pl.edu.agh.gameoflife.game.grid;
 
+import android.graphics.Point;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +20,7 @@ public class NormalGridHandlerTest extends RobolectricTest {
     @Before
     public void setup() {
         cellFactory = new SimpleCellFactory();
-        gameParams = new GameParams.Builder(null, 0).build();
+        gameParams = new GameParams.Builder(new Point(), 1).build();
         gridHandler = new NormalGridHandler(3, 3, gameParams, cellFactory);
     }
 
