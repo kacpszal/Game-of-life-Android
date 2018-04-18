@@ -30,7 +30,8 @@ public class MooreNeighborhoodTest extends RobolectricTest {
 
     @Test
     public void notifyNeighborsSmallRadius() {
-        neighborhood = new MooreNeighborhood(grid, 1);
+        neighborhood = new MooreNeighborhood(grid, gameParams);
+        gameParams.setRadius(1);
         Cell cell = new SimpleCell(2, 2, 1);
         grid.putCell(cellFactory.create(1, 1));
         grid.putCell(cellFactory.create(1, 2));
@@ -55,7 +56,8 @@ public class MooreNeighborhoodTest extends RobolectricTest {
 
     @Test
     public void notifyNeighborsBiggerRadius() {
-        neighborhood = new MooreNeighborhood(grid, 3);
+        neighborhood = new MooreNeighborhood(grid, gameParams);
+        gameParams.setRadius(3);
         Cell cell = new SimpleCell(5, 5, 1);
 
         grid.putCell(cellFactory.create(2, 5));

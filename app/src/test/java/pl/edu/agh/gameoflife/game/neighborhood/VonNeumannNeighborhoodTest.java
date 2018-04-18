@@ -30,7 +30,8 @@ public class VonNeumannNeighborhoodTest extends RobolectricTest {
 
     @Test
     public void notifyNeighborsSmallRadius() {
-        neighborhood = new VonNeumannNeighborhood(grid, 1);
+        neighborhood = new VonNeumannNeighborhood(grid, gameParams);
+        gameParams.setRadius(1);
         Cell cell = new SimpleCell(2, 2, 1);
         grid.putCell(cellFactory.create(1, 2));
         grid.putCell(cellFactory.create(2, 1));
@@ -52,7 +53,8 @@ public class VonNeumannNeighborhoodTest extends RobolectricTest {
 
     @Test
     public void notifyNeighborsBiggerRadius() {
-        neighborhood = new VonNeumannNeighborhood(grid, 3);
+        neighborhood = new VonNeumannNeighborhood(grid, gameParams);
+        gameParams.setRadius(3);
         Cell cell = new SimpleCell(5, 5, 1);
 
         grid.putCell(cellFactory.create(2, 5));
