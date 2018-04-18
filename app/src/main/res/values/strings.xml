@@ -15,7 +15,7 @@
     <string name="structures_tab_text">Structures:</string>
 
     <!-- taby:combobox -->
-    <string-array name="neighboorhood">
+    <string-array name="neighborhood">
         <item>Moore</item>
         <item>Von Neumann</item>
     </string-array>
