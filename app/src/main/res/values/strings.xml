@@ -10,6 +10,8 @@
     <string name="neighborhood_tab_text">Neighborhood:</string>
     <string name="neighbor_radius_tab_text">Neighborhood radius:</string>
     <string name="wrapping_tab_text">Map wrapping:</string>
+    <string name="wrapping_on_toggleButton">On</string>
+    <string name="wrapping_off_toggleButton">Off</string>
     <string name="structures_tab_text">Structures:</string>
 
     <!-- taby:combobox -->

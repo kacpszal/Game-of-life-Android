@@ -60,11 +60,14 @@
         android:layout_height="wrap_content"
         android:text="@string/wrapping_tab_text"
         android:layout_marginTop="15dp"/>
+
     <ToggleButton
         android:id="@+id/wrapping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ToggleButton" />
+        android:checked="true"
+        android:textOff="@string/wrapping_off_toggleButton"
+        android:textOn="@string/wrapping_on_toggleButton" />
 
     <TextView
         android:layout_width="match_parent"
