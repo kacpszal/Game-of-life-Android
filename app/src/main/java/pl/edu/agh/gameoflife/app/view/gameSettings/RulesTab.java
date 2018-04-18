@@ -55,7 +55,7 @@ public class RulesTab extends Fragment {
 
     private void setNeighborhood(View view) {
         this.neighborhood = (Spinner) view.findViewById(R.id.neighborhood);
-        neighborhood.setSelection(NeighborhoodFactory.getPositionByName(gameManager.getParams().getCellNeighboorhood()));
+        neighborhood.setSelection(NeighborhoodFactory.getPositionByName(gameManager.getParams().getCellNeighborhood()));
     }
 
     private void setButtons(View view) {
@@ -70,6 +70,7 @@ public class RulesTab extends Fragment {
                 setWrappingInGameParams();
                 setCellRuleInGameParams();
                 setNeighborhoodInGameParams();
+                setNeighborhoodRadiusInGameParams();
             }
         });
 
@@ -128,6 +129,7 @@ public class RulesTab extends Fragment {
 
     private void setWrapping(View view) {
         wrapping = (ToggleButton) view.findViewById(R.id.wrapping);
+        wrapping.setChecked(gameManager.getParams().getMapWrapping());
     }
 
     private void setWrappingInGameParams() {
@@ -140,7 +142,7 @@ public class RulesTab extends Fragment {
     }
 
     private void setCellRuleInGameParams() {
-        if (cellRule.isEnabled() == true) {
+        if(cellRule.isEnabled()) {
 
         } else {
             gameManager.getParams().setCellRule(specialCellRule.getSelectedItem().toString());
@@ -154,8 +156,12 @@ public class RulesTab extends Fragment {
 
     private void setNeighborhoodInGameParams() {
         String neighbor = neighborhood.getSelectedItem().toString();
-        gameManager.getParams().setCellNeighboorhood(neighbor);
+        gameManager.getParams().setCellNeighborhood(neighbor);
         gameManager.getAutomaton().getGridHandler().getCurrent().changeCellNeighborhood(neighbor);
+    }
+
+    private void setNeighborhoodRadiusInGameParams() {
+        gameManager.getParams().setRadius(Integer.parseInt(neighborhoodRadiusValue.getText().toString()));
     }
 
     public void setGameManager(GameManager gameManager) {

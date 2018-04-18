@@ -2,19 +2,16 @@ package pl.edu.agh.gameoflife.game.neighborhood;
 
 import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.grid.Grid;
+import pl.edu.agh.gameoflife.game.manager.GameParams;
 
 public class VonNeumannNeighborhood extends AbstractCellNeighborhood {
-    public VonNeumannNeighborhood(Grid grid) {
-        super(grid);
-    }
-
-    public VonNeumannNeighborhood(Grid grid, int radius) {
-        super(grid, radius);
+    public VonNeumannNeighborhood(Grid grid, GameParams gameParams) {
+        super(grid, gameParams);
     }
 
     @Override
     public void notifyNeighbors(Cell cell) {
-        for (int j = -radius; j <= radius; ++j) {
+        for (int j = -gameParams.getRadius(); j <= gameParams.getRadius(); ++j) {
             if(j != 0) {
                 Cell neighbor = grid.getCell(cell.getX(), cell.getY() + j);
                 if(neighbor != null) {
@@ -22,7 +19,7 @@ public class VonNeumannNeighborhood extends AbstractCellNeighborhood {
                 }
             }
         }
-        for (int i = -radius; i <= radius; ++i) {
+        for (int i = -gameParams.getRadius(); i <= gameParams.getRadius(); ++i) {
             if(i != 0) {
                 Cell neighbor = grid.getCell(cell.getX() + i, cell.getY());
                 if(neighbor != null) {
