@@ -16,11 +16,13 @@ import pl.edu.agh.gameoflife.app.view.gameSettings.SettingsDialogFragment_;
 import pl.edu.agh.gameoflife.game.automaton.GameOfLifeAutomatonFactory;
 import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
 import pl.edu.agh.gameoflife.game.cell.Cell;
+import pl.edu.agh.gameoflife.game.event.Draw;
 import pl.edu.agh.gameoflife.game.event.Pause;
 import pl.edu.agh.gameoflife.game.event.Reset;
 import pl.edu.agh.gameoflife.game.event.Restart;
 import pl.edu.agh.gameoflife.game.event.Resume;
 import pl.edu.agh.gameoflife.game.event.Save;
+import pl.edu.agh.gameoflife.game.event.Zoom;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.visualization.cell.SimpleCellColors;
@@ -147,5 +149,20 @@ public class GameOfLifePresenter {
         SettingsDialogFragment dialogFragment = SettingsDialogFragment_.builder().build();
         dialogFragment.setGameManager(gameManager);
         dialogFragment.show(activity.getSupportFragmentManager(), "gameSettings");
+    }
+
+    void onDraw() {
+        EventBus.getInstance().post(new Draw());
+        setUiZoomState(false);
+    }
+
+    void onZoom() {
+        EventBus.getInstance().post(new Zoom());
+        setUiZoomState(true);
+    }
+
+    private void setUiZoomState(boolean zoomed) {
+        activity.draw.setVisibility(zoomed ? VISIBLE : GONE);
+        activity.zoom.setVisibility(zoomed ? GONE : VISIBLE);
     }
 }

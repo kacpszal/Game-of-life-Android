@@ -74,7 +74,6 @@ public class SimpleCell implements Cell {
     public void onNeighborStateChange(int newState) {
         if (newState == STATE_DEAD) {
             decreaseNeighborCount();
-
         } else {
             increaseNeighborCount();
         }
