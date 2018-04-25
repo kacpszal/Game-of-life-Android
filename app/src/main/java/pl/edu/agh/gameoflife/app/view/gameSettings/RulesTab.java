@@ -88,6 +88,7 @@ public class RulesTab extends Fragment {
     private void setCellRule(View view) {
         cellRule = (EditText) view.findViewById(R.id.cellRule);
         cellRule.addTextChangedListener(new CellRuleWatcher(cellRule));
+
     }
 
     private void setNeighborhoodRadius(View view) {
@@ -115,7 +116,6 @@ public class RulesTab extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    cellRule.setText("");
                     cellRule.setEnabled(true);
                 } else {
                     cellRule.setText(RuleFactory.getRuleByName(specialCellRule.getSelectedItem().toString()));
@@ -127,7 +127,11 @@ public class RulesTab extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        specialCellRule.setSelection(RuleFactory.getPositionByName(gameManager.getParams().getCellRule()));
+
+        int spinnerPosition = RuleFactory.getPositionByName(gameManager.getParams().getCellRule());
+        specialCellRule.setSelection(spinnerPosition);
+        if( spinnerPosition == 0 ) cellRule.setText(gameManager.getParams().getCellRule());
+
     }
 
     private void setWrapping(View view) {
@@ -146,7 +150,8 @@ public class RulesTab extends Fragment {
 
     private void setCellRuleInGameParams() {
         if(cellRule.isEnabled()) {
-
+            gameManager.getParams().setCellRule(cellRule.getText().toString());
+            gameManager.getAutomaton().changeRule();
         } else {
             gameManager.getParams().setCellRule(specialCellRule.getSelectedItem().toString());
             gameManager.getAutomaton().changeRule();
