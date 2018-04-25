@@ -19,12 +19,12 @@
         <ImageButton
             android:id="@+id/zoom"
             style="@style/button"
-            android:src="@drawable/ic_pause" />
+            android:src="@android:drawable/ic_menu_search" />
 
         <ImageButton
             android:id="@+id/draw"
             style="@style/button"
-            android:src="@drawable/ic_play"
+            android:src="@android:drawable/ic_menu_edit"
             android:visibility="gone" />
 
         <ImageButton
@@ -50,7 +50,8 @@
         <ImageButton
             android:id="@+id/load"
             style="@style/button"
-            android:src="@android:drawable/ic_menu_search" />
+            android:elevation="0dp"
+            android:src="@android:drawable/ic_menu_upload" />
 
         <ImageButton
             android:id="@+id/pause"
