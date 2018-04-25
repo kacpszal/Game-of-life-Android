@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import org.androidannotations.annotations.EFragment;
 
 import pl.edu.agh.gameoflife.R;
-import pl.edu.agh.gameoflife.app.view.CustomAdapter;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 
 

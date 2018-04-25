@@ -1,4 +1,4 @@
-package pl.edu.agh.gameoflife.app.view;
+package pl.edu.agh.gameoflife.app.view.gameSettings;
 
 
 import android.support.v4.app.Fragment;

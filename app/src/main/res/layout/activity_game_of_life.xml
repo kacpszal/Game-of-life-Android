@@ -43,15 +43,10 @@
             android:src="@drawable/ic_settings" />
 
         <ImageButton
-            android:id="@+id/save"
-            style="@style/button"
-            android:src="@android:drawable/ic_menu_save" />
-
-        <ImageButton
             android:id="@+id/load"
             style="@style/button"
             android:elevation="0dp"
-            android:src="@android:drawable/ic_menu_upload" />
+            android:src="@android:drawable/ic_menu_save" />
 
         <ImageButton
             android:id="@+id/pause"

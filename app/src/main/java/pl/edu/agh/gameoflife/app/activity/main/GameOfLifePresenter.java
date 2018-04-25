@@ -21,7 +21,6 @@ import pl.edu.agh.gameoflife.game.event.Pause;
 import pl.edu.agh.gameoflife.game.event.Reset;
 import pl.edu.agh.gameoflife.game.event.Restart;
 import pl.edu.agh.gameoflife.game.event.Resume;
-import pl.edu.agh.gameoflife.game.event.Save;
 import pl.edu.agh.gameoflife.game.event.Zoom;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
@@ -133,10 +132,6 @@ public class GameOfLifePresenter {
 
     void onRestartGame() {
         EventBus.getInstance().post(new Restart());
-    }
-
-    void onSaveGame() {
-        EventBus.getInstance().post(new Save());
     }
 
     void onLoadGame() {

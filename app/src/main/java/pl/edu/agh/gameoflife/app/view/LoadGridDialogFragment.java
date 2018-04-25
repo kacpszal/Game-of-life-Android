@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import org.androidannotations.annotations.EFragment;
@@ -18,10 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.edu.agh.gameoflife.R;
+import pl.edu.agh.gameoflife.game.event.Save;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
 import pl.edu.agh.gameoflife.persistence.GridDao;
 import pl.edu.agh.gameoflife.persistence.GridDaoRepository;
 import pl.edu.agh.gameoflife.persistence.GridDaoToGrid;
+import pl.edu.agh.gameoflife.util.EventBus;
 
 @EFragment
 public class LoadGridDialogFragment extends DialogFragment implements AdapterView.OnItemClickListener {
@@ -29,11 +32,13 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
     GameManager gameManager;
     ListView gridListView;
     GridDao focusedGrid;
+    EditText saveName;
 
     List<GridDao> gridsLoadedFromDatabase = new ArrayList<>();
 
     Button deleteGridButton;
     Button loadGridButton;
+    Button saveGridButton;
 
     public void setGameManager(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -51,8 +56,10 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
         View view = inflater.inflate(R.layout.load_grid_dialog, null, false);
         gridListView = (ListView) view.findViewById(R.id.listOfGrids);
 
+        saveName = (EditText) view.findViewById(R.id.saveName);
         deleteGridButton = (Button) view.findViewById(R.id.delete_button);
         loadGridButton = (Button) view.findViewById(R.id.load_button);
+        saveGridButton = (Button) view.findViewById(R.id.save_button);
 
         return view;
     }
@@ -62,9 +69,10 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
         super.onActivityCreated(savedInstanceState);
 
         updateGridListView();
-
+        saveName.setText("Board save text");
         deleteGridButton.setOnClickListener(getDeleteListener());
         loadGridButton.setOnClickListener(getLoadGridListener());
+        saveGridButton.setOnClickListener(getSaveGridListener());
     }
 
     private void updateGridListView() {
@@ -72,7 +80,7 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
 
         List<String> gridCreationDates = new ArrayList<>();
         for (GridDao grid : gridsLoadedFromDatabase) {
-            gridCreationDates.add(grid.getDate().toString());
+            gridCreationDates.add(grid.getSaveText());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
@@ -102,6 +110,17 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
                     gameManager.getAutomaton().fillFromGrid(GridDaoToGrid.parse(focusedGrid, gameManager.getParams()));
 //                    dismiss();
                 }
+            }
+        };
+    }
+
+    private View.OnClickListener getSaveGridListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String saveString = saveName.getText().toString();
+                EventBus.getInstance().post(new Save(saveString));
+                updateGridListView();
             }
         };
     }

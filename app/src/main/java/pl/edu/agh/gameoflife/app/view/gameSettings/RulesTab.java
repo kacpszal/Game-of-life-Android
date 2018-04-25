@@ -38,6 +38,7 @@ public class RulesTab extends Fragment {
     private Button save;
     private Button load;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.game_rules_tab, container, false);
