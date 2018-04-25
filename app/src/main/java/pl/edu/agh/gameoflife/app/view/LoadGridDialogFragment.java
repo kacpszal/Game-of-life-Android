@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -69,7 +70,6 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
         super.onActivityCreated(savedInstanceState);
 
         updateGridListView();
-        saveName.setText("Board save text");
         deleteGridButton.setOnClickListener(getDeleteListener());
         loadGridButton.setOnClickListener(getLoadGridListener());
         saveGridButton.setOnClickListener(getSaveGridListener());
@@ -78,16 +78,17 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
     private void updateGridListView() {
         gridsLoadedFromDatabase = GridDaoRepository.getGrids(getActivity().getApplicationContext());
 
-        List<String> gridCreationDates = new ArrayList<>();
+        List<String> gridCreationText = new ArrayList<>();
         for (GridDao grid : gridsLoadedFromDatabase) {
-            gridCreationDates.add(grid.getSaveText());
+            gridCreationText.add(grid.getSaveText());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                R.layout.grid_item, R.id.grid_id, gridCreationDates);
+                R.layout.grid_item, R.id.grid_id, gridCreationText);
 
         gridListView.setAdapter(adapter);
         gridListView.setOnItemClickListener(this);
+        saveName.setText("Game: "+ gridListView.getAdapter().getCount());
     }
 
     private View.OnClickListener getDeleteListener() {
@@ -119,8 +120,17 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
             @Override
             public void onClick(View view) {
                 String saveString = saveName.getText().toString();
-                EventBus.getInstance().post(new Save(saveString));
-                updateGridListView();
+                Boolean nameExists = false;
+                for (int k = 0; k < gridListView.getChildCount(); k++) {
+                    if (saveString.equals(gridsLoadedFromDatabase.get(k).getSaveText() )) { nameExists = true; }
+                }
+
+                if(nameExists){
+                    Toast.makeText(getActivity().getApplicationContext(), "Name already exists!", Toast.LENGTH_LONG).show();
+                } else {
+                    EventBus.getInstance().post(new Save(saveString));
+                    updateGridListView();
+                }
             }
         };
     }
@@ -128,6 +138,7 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         focusedGrid = gridsLoadedFromDatabase.get(i);
+        saveName.setText(focusedGrid.getSaveText());
         for (int k = 0; k < gridListView.getChildCount(); k++) {
             if (i == k) {
                 gridListView.getChildAt(k).setBackgroundColor(Color.GRAY);
