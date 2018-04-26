@@ -1,9 +1,11 @@
 package pl.edu.agh.gameoflife.app.view;
 
 import android.content.Context;
+import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -26,22 +28,26 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     private CellularAutomaton automaton;
     private GameParams params;
     private AutomatonThread thread;
-    private ScaleGestureDetector mScaleDetector;
-    private float scaleFactor = 1.0f;
+    private Matrix matrix = new Matrix();
+    private Matrix savedMatrix = new Matrix();
+    private PointF start = new PointF();
+    private PointF mid = new PointF();
+    private float oldDist = 1f;
+    private static final int NONE = 0;
+    private static final int PAN = 1;
+    private static final int ZOOM = 2;
+    private int mode = NONE;
 
     public AutomatonView(Context context) {
         super(context);
-        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public AutomatonView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public AutomatonView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     @DebugLog
@@ -87,18 +93,145 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+    void panZoomWithTouch(MotionEvent event){
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+
+            case MotionEvent.ACTION_DOWN:
+                savedMatrix.set(matrix);
+                start.set(event.getX(), event.getY());
+                mode = PAN;
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+                oldDist = spacing(event);
+                if (oldDist > 10f) {
+                    savedMatrix.set(matrix);
+                    midPoint(mid, event);
+                    mode = ZOOM;
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+
+            case MotionEvent.ACTION_POINTER_UP:
+                mode = NONE;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                if (mode == PAN) {
+                    matrix.set(savedMatrix);
+                    matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
+                }
+                else if (mode == ZOOM) {
+                    float[] f = new float[9];
+                    float newDist = spacing(event);
+                    if (newDist > 10f) {
+                        if(checkScale(newDist, mid.x, mid.y)) {
+                            matrix.set(savedMatrix);
+                            float scale = newDist / oldDist;
+                            matrix.postScale(scale, scale, mid.x, mid.y);
+
+                            matrix.getValues(f);
+                            float scaleX = f[Matrix.MSCALE_X];
+                            float scaleY = f[Matrix.MSCALE_Y];
+
+                            if(scaleX >= 8f) {
+                                matrix.postScale((8f)/scaleX, (8f)/scaleY, mid.x, mid.y);
+                            }
+
+                        } else {
+                            matrix.setTranslate(params.getDisplaySize().x / 2, params.getDisplaySize().y / 2);
+                        }
+                    }
+                }
+                rebound();
+                break;
+
+        }
+        params.setMatrix(matrix);
+        float[] f = new float[9];
+        matrix.getValues(f);
+        params.setMatrixScaleX(f[Matrix.MSCALE_X]);
+        params.setMatrixScaleY(f[Matrix.MSCALE_Y]);
+        params.setMatrixTransX(f[Matrix.MTRANS_X]);
+        params.setMatrixTransY(f[Matrix.MTRANS_Y]);
+    }
+
+    private boolean checkScale(float newDist, float x, float y) {
+        Matrix matrixTest = new Matrix();
+        matrixTest.set(new Matrix(savedMatrix));
+        float scaleTest = newDist / oldDist;
+        matrixTest.postScale(scaleTest, scaleTest, x, y);
+
+        RectF currentBounds = new RectF(0, 0, params.getDisplaySize().x, params.getDisplaySize().y);
+        matrixTest.mapRect(currentBounds);
+
+        RectF areaBounds = new RectF((float) getLeft(),
+                (float) getTop(),
+                (float) params.getDisplaySize().x + (float) getLeft(),
+                (float) params.getDisplaySize().y + (float) getTop());
+
+        if(currentBounds.left > areaBounds.left || currentBounds.top > areaBounds.top ||
+                currentBounds.bottom < areaBounds.bottom || currentBounds.right < areaBounds.right) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void rebound() {
+        RectF currentBounds = new RectF(0, 0, params.getDisplaySize().x, params.getDisplaySize().y);
+        matrix.mapRect(currentBounds);
+
+        RectF areaBounds = new RectF((float) getLeft(),
+                (float) getTop(),
+                (float) params.getDisplaySize().x + (float) getLeft(),
+                (float) params.getDisplaySize().y + (float) getTop());
+
+        PointF diff = new PointF(0f, 0f);
+
+        if (currentBounds.width() > areaBounds.width()) {
+            if (currentBounds.left > areaBounds.left) {
+                diff.x = (areaBounds.left - currentBounds.left);
+            }
+            if (currentBounds.right < areaBounds.right) {
+                diff.x = (areaBounds.right - currentBounds.right);
+            }
+        } else {
+            diff.x = (areaBounds.left - currentBounds.left);
+        }
+
+        if (currentBounds.height() > areaBounds.height()) {
+            if (currentBounds.top > areaBounds.top) {
+                diff.y = (areaBounds.top - currentBounds.top);
+            }
+            if (currentBounds.bottom < areaBounds.bottom) {
+                diff.y = (areaBounds.bottom - currentBounds.bottom);
+            }
+        } else {
+            diff.y = (areaBounds.top - currentBounds.top);
+        }
+
+        matrix.postTranslate(diff.x, diff.y);
+    }
+
+    private float spacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float)Math.sqrt(x * x + y * y);
+    }
+
+    private void midPoint(PointF point, MotionEvent event) {
+        float x = event.getX(0) + event.getX(1);
+        float y = event.getY(0) + event.getY(1);
+        point.set(x / 2, y / 2);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        /*mScaleDetector.onTouchEvent(event);
-        if(!mScaleDetector.isInProgress() && !params.getIsScaleGestureInProgress()){
-            paint(event);
-        }
-        if(event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_UP) {
-            params.setIsScaleGestureInProgress(false);
-        }*/
-
         if(params.getIsZoom()) {
-            mScaleDetector.onTouchEvent(event);
+            panZoomWithTouch(event);
+            invalidate();
         } else {
             paint(event);
         }
@@ -135,43 +268,14 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     private float adjustX(float x) {
-        x -= params.getDrawFocusX();
-        x /= params.getScaleFactor();
-        x += params.getDrawFocusX();
+        x /= params.getMatrixScaleX();
+        x -= params.getMatrixTransX() / params.getMatrixScaleX();
         return x;
     }
 
     private float adjustY(float y) {
-        y -= params.getDrawFocusY();
-        y /= params.getScaleFactor();
-        y += params.getDrawFocusY();
+        y /= params.getMatrixScaleY();
+        y -= params.getMatrixTransY() / params.getMatrixScaleY();
         return y;
-    }
-
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        float x;
-        float y;
-        @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
-            x = params.getDrawFocusX() - params.getPreviousFocusX();
-            x /= params.getScaleFactor();
-            x += params.getPreviousFocusX();
-            y = params.getDrawFocusY() - params.getPreviousFocusY();
-            y /= params.getScaleFactor();
-            y += params.getPreviousFocusY();
-            params.setPreviousFocusX(x);
-            params.setPreviousFocusY(y);
-        }
-
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            //params.setIsScaleGestureInProgress(true);
-            scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(1.0f, Math.min(scaleFactor, 5.0f));
-            params.setScaleFactor(scaleFactor);
-            params.setFocusX(detector.getFocusX());
-            params.setFocusY(detector.getFocusY());
-            return true;
-        }
     }
 }

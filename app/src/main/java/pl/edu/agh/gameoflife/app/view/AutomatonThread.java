@@ -182,22 +182,6 @@ class AutomatonThread extends Thread {
         EventBus.getInstance().unregister(this);
     }
 
-    private float adjustX(float x) {
-        x -= params.getPreviousFocusX();
-        x /= params.getScaleFactor();
-        x += params.getPreviousFocusX();
-        params.setDrawFocusX(x);
-        return x;
-    }
-
-    private float adjustY(float y) {
-        y -= params.getPreviousFocusY();
-        y /= params.getScaleFactor();
-        y += params.getPreviousFocusY();
-        params.setDrawFocusY(y);
-        return y;
-    }
-
     protected void canvasCycle() {
         Canvas canvas = null;
         try {
@@ -214,7 +198,6 @@ class AutomatonThread extends Thread {
 
     protected void gameCycle(Canvas canvas) throws InterruptedException {
         if (canvas != null) {
-            canvas.scale(params.getScaleFactor(), params.getScaleFactor(), adjustX(params.getFocusX()), adjustY(params.getFocusY()));
             measuredCycleCore(canvas);
             sleepToKeepFps();
         }
@@ -288,7 +271,7 @@ class AutomatonThread extends Thread {
             paintCell(change.x, change.y, change.stateSnapshot);
         }
 
-        canvas.drawBitmap(buffCanvasBitmap, 0, 0, null);
+        canvas.drawBitmap(buffCanvasBitmap, params.getMatrix(), null);
     }
 
     private void sleepToKeepFps() throws InterruptedException {

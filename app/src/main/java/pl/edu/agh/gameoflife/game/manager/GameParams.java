@@ -1,5 +1,6 @@
 package pl.edu.agh.gameoflife.game.manager;
 
+import android.graphics.Matrix;
 import android.graphics.Point;
 
 import pl.edu.agh.gameoflife.game.automaton.GridCharacteristic;
@@ -15,20 +16,17 @@ public class GameParams {
     private final CellColors cellColors;
     private final int fps;
     private final boolean startPaused;
-    private float scaleFactor = 1.f;
-    private float focusX = 0;
-    private float focusY = 0;
-    private float previousFocusX = 0;
-    private float previousFocusY = 0;
-    private float drawFocusX = 0;
-    private float drawFocusY = 0;
-    private boolean isScaleGestureInProgress = false;
     private boolean isZoom = false;
     private String cellRule = "Conways";
     private String structure = "Point";
     private boolean mapWrapping = true;
     private String cellNeighborhood = "Moore";
     private int radius = 1;
+    private Matrix matrix = new Matrix();
+    private float matrixScaleX = 1f;
+    private float matrixScaleY = 1f;
+    private float matrixTransX = 0;
+    private float matrixTransY = 0;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -78,76 +76,12 @@ public class GameParams {
         return startPaused;
     }
 
-    public float getScaleFactor() {
-        return scaleFactor;
-    }
-
-    public float getFocusX() {
-        return focusX;
-    }
-
-    public float getFocusY() {
-        return focusY;
-    }
-
-    public void setScaleFactor(float scaleFactor) {
-        this.scaleFactor = scaleFactor;
-    }
-
-    public void setFocusX(float focusX) {
-        this.focusX = focusX;
-    }
-
-    public void setFocusY(float focusY) {
-        this.focusY = focusY;
-    }
-
-    public boolean getIsScaleGestureInProgress() {
-        return isScaleGestureInProgress;
-    }
-
-    public void setIsScaleGestureInProgress(boolean isScaleGestureInProgress) {
-        this.isScaleGestureInProgress = isScaleGestureInProgress;
-    }
-
     public boolean getIsZoom() {
         return isZoom;
     }
 
     public void setIsZoom(boolean isZoom) {
         this.isZoom = isZoom;
-    }
-
-    public float getPreviousFocusX() {
-        return previousFocusX;
-    }
-
-    public void setPreviousFocusX(float previousFocusX) {
-        this.previousFocusX = previousFocusX;
-    }
-
-    public float getPreviousFocusY() {
-        return previousFocusY;
-    }
-
-    public void setPreviousFocusY(float previousFocusY) {
-        this.previousFocusY = previousFocusY;
-    }
-
-    public float getDrawFocusX() {
-        return drawFocusX;
-    }
-
-    public void setDrawFocusX(float drawFocusX) {
-        this.drawFocusX = drawFocusX;
-    }
-
-    public float getDrawFocusY() {
-        return drawFocusY;
-    }
-
-    public void setDrawFocusY(float drawFocusY) {
-        this.drawFocusY = drawFocusY;
     }
 
     public String getStructure() {
@@ -182,6 +116,46 @@ public class GameParams {
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    public Matrix getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(Matrix matrix) {
+        this.matrix = matrix;
+    }
+
+    public float getMatrixScaleX() {
+        return matrixScaleX;
+    }
+
+    public void setMatrixScaleX(float matrixScaleX) {
+        this.matrixScaleX = matrixScaleX;
+    }
+
+    public float getMatrixScaleY() {
+        return matrixScaleY;
+    }
+
+    public void setMatrixScaleY(float matrixScaleY) {
+        this.matrixScaleY = matrixScaleY;
+    }
+
+    public float getMatrixTransX() {
+        return matrixTransX;
+    }
+
+    public void setMatrixTransX(float matrixTransX) {
+        this.matrixTransX = matrixTransX;
+    }
+
+    public float getMatrixTransY() {
+        return matrixTransY;
+    }
+
+    public void setMatrixTransY(float matrixTransY) {
+        this.matrixTransY = matrixTransY;
     }
 
     public static final class Builder {
