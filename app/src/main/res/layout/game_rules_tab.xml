@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="@string/game_rules_tab_text"/>
     <EditText
         android:id="@+id/cellRule"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/special_rules_tab_text"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="5dp"/>
     <Spinner
         android:id="@+id/special_cell_rule"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/neighborhood_tab_text"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="5dp"/>
     <Spinner
         android:id="@+id/neighborhood"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/neighbor_radius_tab_text"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="5dp"/>
 
     <SeekBar
         android:id="@+id/neighborhoodRadius"
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/wrapping_tab_text"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="5dp"/>
 
     <ToggleButton
         android:id="@+id/wrapping"
@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/structures_tab_text"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="5dp"/>
     <Spinner
         android:id="@+id/structures"
         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="bottom|center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="50dp">
 
         <Button

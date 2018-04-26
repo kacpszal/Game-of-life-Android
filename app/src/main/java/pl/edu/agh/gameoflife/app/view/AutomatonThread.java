@@ -133,7 +133,7 @@ class AutomatonThread extends Thread {
     @Subscribe
     synchronized public void onEvent(Save event) {
         GridDaoRepository.save(DataManager.getSharedInstance(context).database,
-                GridToGridDao.parse(automaton.getCurrentState()));
+                GridToGridDao.parse(automaton.getCurrentState(), event.saveName));
     }
 
     @Subscribe

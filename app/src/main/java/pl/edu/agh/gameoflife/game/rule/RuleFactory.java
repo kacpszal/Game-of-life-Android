@@ -37,8 +37,9 @@ public class RuleFactory {
         else if (rule.equals("Assimilation")) {
             return new AssimilationRule();
         }
-        else
-            return null;
+        else {
+            return new CustomRule(rule);
+        }
     }
     public static String getRuleByName(String rule){
         if (rule.equals("Conways")) {

@@ -38,7 +38,7 @@ public class GameOfLifeActivity extends FragmentActivity {
     AutomatonView automatonView;
 
     @ViewById
-    ImageButton zoom, draw, reset, restart, save, load, settings, pause, resume;
+    ImageButton zoom, draw, reset, restart, load, settings, pause, resume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +112,6 @@ public class GameOfLifeActivity extends FragmentActivity {
     @Click
     void restart() {
         presenter.onRestartGame();
-    }
-
-    @Click
-    void save() {
-        presenter.onSaveGame();
     }
 
     @Click

@@ -5,4 +5,9 @@ package pl.edu.agh.gameoflife.game.event;
  */
 
 public class Save {
+    public String saveName;
+
+    public Save(String s){
+        this.saveName = s;
+    }
 }

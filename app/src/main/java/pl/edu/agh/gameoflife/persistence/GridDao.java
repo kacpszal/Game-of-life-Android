@@ -10,19 +10,14 @@ import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.View;
 
-import java.util.Date;
 import java.util.Map;
 
-/**
- * Created by grzegorz on 11/20/17.
- */
 
 public class GridDao implements Comparable<GridDao> {
     int[][] cellsState;
     int sizeY;
     int sizeX;
-    Date date;
-
+    String saveText;
     private String _id;
     private String _rev;
 
@@ -91,16 +86,14 @@ public class GridDao implements Comparable<GridDao> {
         this.cellsState = cellsState;
     }
 
-    public Date getDate() {
-        return date;
+    public void setSaveText(String saveText) {
+        this.saveText = saveText;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public String getSaveText() { return saveText; }
 
     @Override
     public int compareTo(@NonNull GridDao gridDao) {
-        return gridDao.date.compareTo(this.date);
+        return gridDao.saveText.compareTo(this.saveText);
     }
 }
