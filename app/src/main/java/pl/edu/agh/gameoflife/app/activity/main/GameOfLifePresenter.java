@@ -80,6 +80,9 @@ public class GameOfLifePresenter {
 
     private GameParams getGameParams() {
         Point displaySize = displayHelper.getDisplaySize();
+        // Add +1 to remove bug with blinking pixels at border of the canvas
+        displaySize.x += 1;
+        displaySize.y += 1;
         int cellSize = getOptimalCellSize(displaySize, displayHelper.isLandscape());
 
         return new GameParams.Builder(displaySize, cellSize)
