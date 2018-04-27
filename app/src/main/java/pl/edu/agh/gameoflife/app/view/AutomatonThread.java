@@ -15,8 +15,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
+import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.event.CellStateChange;
 import pl.edu.agh.gameoflife.game.event.Draw;
+import pl.edu.agh.gameoflife.game.event.PaintStructureWithBrush;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.event.Pause;
 import pl.edu.agh.gameoflife.game.event.Reset;
@@ -106,6 +108,15 @@ class AutomatonThread extends Thread {
     synchronized public void onEvent(PaintWithBrush event) {
         final Point p = translator.reverseTranslate(new Point(event.x, event.y));
         brush.paint(automaton, p);
+    }
+
+    @Subscribe
+    synchronized  public void onEvent(PaintStructureWithBrush event) {
+        Point p;
+        for (Cell cell : event.structure.getListOfStructure()) {
+            p = translator.reverseTranslate(new Point(cell.getX(), cell.getY()));
+            brush.paint(automaton, p);
+        }
     }
 
     @Subscribe

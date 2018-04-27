@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import hugo.weaving.DebugLog;
 import pl.edu.agh.gameoflife.game.automaton.CellularAutomaton;
 import pl.edu.agh.gameoflife.game.cell.Cell;
+import pl.edu.agh.gameoflife.game.event.PaintStructureWithBrush;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
 import pl.edu.agh.gameoflife.game.structures.CrabStructure;
@@ -262,9 +263,7 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     protected void paintStructure(Structure structure) {
-        for (Cell cell : structure.getListOfStructure()) {
-            EventBus.getInstance().post(new PaintWithBrush(cell.getX(), cell.getY()));
-        }
+        EventBus.getInstance().post(new PaintStructureWithBrush(structure));
     }
 
     private float adjustX(float x) {
