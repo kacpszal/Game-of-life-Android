@@ -119,7 +119,7 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         }
     }
 
-    protected void applyNewGrid(Grid<T> grid, Point min, Point max) {
+    synchronized protected void applyNewGrid(Grid<T> grid, Point min, Point max) {
         for (int j = min.y; j < max.y; j++) {
             for (int i = min.x; i < max.x; i++) {
                 grid.getCell(i, j).setState(stateChanges[j][i]);
