@@ -6,6 +6,37 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TO DO.."/>
+        android:text="@string/animation_speed"
+        android:layout_marginTop="5dp"/>
+    <SeekBar
+        android:id="@+id/animationSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="4"
+        android:progress="0" />
+    <TextView
+        android:id="@+id/valueAnimationSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/animation_step"
+        android:layout_marginTop="15dp"/>
+    <SeekBar
+        android:id="@+id/animationStep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="4"
+        android:progress="0" />
+    <TextView
+        android:id="@+id/valueAnimationStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="1"/>
+
 </LinearLayout>

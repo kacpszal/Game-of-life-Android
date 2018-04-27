@@ -4,7 +4,7 @@
     <string name="exit_menu_button">Exit</string>
     <string name="play_menu_button">Play</string>
 
-    <!-- taby -->
+    <!-- tab:game_rules -->
     <string name="game_rules_tab_text">Cell rule:</string>
     <string name="special_rules_tab_text">Special cell rule:</string>
     <string name="neighborhood_tab_text">Neighborhood:</string>
@@ -14,7 +14,7 @@
     <string name="wrapping_off_toggleButton">Off</string>
     <string name="structures_tab_text">Structures:</string>
 
-    <!-- taby:combobox -->
+    <!-- tab:game_rules:combobox -->
     <string-array name="neighborhood">
         <item>Moore</item>
         <item>Von Neumann</item>
@@ -44,9 +44,13 @@
         <item>Spaceship</item>
     </string-array>
 
-    <!-- taby:button -->
+    <!-- tab:game_rules:button -->
     <string name="apply_button">Apply</string>
     <string name="load_button">Load</string>
     <string name="save_button">Save</string>
+
+    <!-- tab:animation -->
+    <string name="animation_speed">Speed</string>
+    <string name="animation_step">Step</string>
 
 </resources>
