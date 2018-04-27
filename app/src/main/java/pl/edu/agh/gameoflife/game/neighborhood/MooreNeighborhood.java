@@ -10,7 +10,7 @@ public class MooreNeighborhood extends AbstractCellNeighborhood {
     }
 
     @Override
-    public void notifyNeighbors(Cell cell) {
+    synchronized public void notifyNeighbors(Cell cell) {
         for (int j = -gameParams.getRadius(); j <= gameParams.getRadius(); ++j) {
             for (int i = -gameParams.getRadius(); i <= gameParams.getRadius(); ++i) {
                 if (j != 0 || i != 0) {

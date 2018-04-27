@@ -10,7 +10,7 @@ public class VonNeumannNeighborhood extends AbstractCellNeighborhood {
     }
 
     @Override
-    public void notifyNeighbors(Cell cell) {
+    synchronized public void notifyNeighbors(Cell cell) {
         for (int j = -gameParams.getRadius(); j <= gameParams.getRadius(); ++j) {
             if(j != 0) {
                 Cell neighbor = grid.getCell(cell.getX(), cell.getY() + j);
