@@ -55,7 +55,6 @@ class AutomatonThread extends Thread {
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
     private Brush brush;
-    private boolean shouldDrawStructure;
     private Structure structure;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params, Context context) {
@@ -116,7 +115,6 @@ class AutomatonThread extends Thread {
     @Subscribe
     synchronized public void onEvent(PaintStructureWithBrush event) {
         structure = event.structure;
-        shouldDrawStructure = true;
     }
 
     @Subscribe
@@ -268,7 +266,7 @@ class AutomatonThread extends Thread {
     }
 
     private void drawStructure() {
-        if(shouldDrawStructure) {
+        if(structure != null) {
             try {
                 sleep(timeForAFrame);
             } catch(InterruptedException e) {
@@ -279,7 +277,7 @@ class AutomatonThread extends Thread {
                 p = translator.reverseTranslate(new Point(cell.getX(), cell.getY()));
                 brush.paint(automaton, p);
             }
-            shouldDrawStructure = false;
+            structure = null;
         }
     }
 
