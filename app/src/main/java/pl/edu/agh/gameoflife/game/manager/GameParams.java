@@ -25,8 +25,10 @@ public class GameParams {
     private Matrix matrix = new Matrix();
     private float matrixScaleX = 1f;
     private float matrixScaleY = 1f;
-    private float matrixTransX = 0;
-    private float matrixTransY = 0;
+    private float matrixTransX;
+    private float matrixTransY;
+    private int speedAnimation = 1;
+    private int stepAnimation = 1;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -156,6 +158,22 @@ public class GameParams {
 
     public void setMatrixTransY(float matrixTransY) {
         this.matrixTransY = matrixTransY;
+    }
+
+    public int getSpeedAnimation() {
+        return speedAnimation;
+    }
+
+    public void setSpeedAnimation(int speedAnimation) {
+        this.speedAnimation = speedAnimation;
+    }
+
+    public int getStepAnimation() {
+        return stepAnimation;
+    }
+
+    public void setStepAnimation(int stepAnimation) {
+        this.stepAnimation = stepAnimation;
     }
 
     public static final class Builder {

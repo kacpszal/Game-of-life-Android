@@ -35,7 +35,10 @@ public class SettingsDialogFragment extends DialogFragment {
         RulesTab rulesTab = new RulesTab();
         rulesTab.setGameManager(gameManager);
         adapter.addFragment("Rules", rulesTab );
-        adapter.addFragment("Animation", new AnimationTab());
+
+        AnimationTab animationTab = new AnimationTab();
+        animationTab.setGameManager(gameManager);
+        adapter.addFragment("Animation", animationTab);
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
