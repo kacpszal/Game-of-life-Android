@@ -28,6 +28,7 @@ import pl.edu.agh.gameoflife.game.event.Save;
 import pl.edu.agh.gameoflife.game.event.Zoom;
 import pl.edu.agh.gameoflife.game.grid.Grid;
 import pl.edu.agh.gameoflife.game.manager.GameParams;
+import pl.edu.agh.gameoflife.game.structures.Structure;
 import pl.edu.agh.gameoflife.game.visualization.brush.Brush;
 import pl.edu.agh.gameoflife.game.visualization.brush.DefaultBlockBrush;
 import pl.edu.agh.gameoflife.game.visualization.cell.CellColors;
@@ -54,6 +55,8 @@ class AutomatonThread extends Thread {
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
     private Brush brush;
+    private boolean shouldDrawStructure;
+    private Structure structure;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params, Context context) {
         translator = new CoordinateTranslator(params.getScreenOrientation(), automaton.getSizeX(), automaton.getSizeY());
@@ -111,12 +114,9 @@ class AutomatonThread extends Thread {
     }
 
     @Subscribe
-    synchronized  public void onEvent(PaintStructureWithBrush event) {
-        Point p;
-        for (Cell cell : event.structure.getListOfStructure()) {
-            p = translator.reverseTranslate(new Point(cell.getX(), cell.getY()));
-            brush.paint(automaton, p);
-        }
+    synchronized public void onEvent(PaintStructureWithBrush event) {
+        structure = event.structure;
+        shouldDrawStructure = true;
     }
 
     @Subscribe
@@ -230,6 +230,7 @@ class AutomatonThread extends Thread {
             stepAutomaton();
         }
 
+        drawStructure();
         draw(canvas);
     }
 
@@ -264,6 +265,22 @@ class AutomatonThread extends Thread {
     private void resetFlags() {
         shouldReset = false;
         shouldRestart = false;
+    }
+
+    private void drawStructure() {
+        if(shouldDrawStructure) {
+            try {
+                sleep(timeForAFrame);
+            } catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+            Point p;
+            for (Cell cell : structure.getListOfStructure()) {
+                p = translator.reverseTranslate(new Point(cell.getX(), cell.getY()));
+                brush.paint(automaton, p);
+            }
+            shouldDrawStructure = false;
+        }
     }
 
     private void stepAutomaton() {
