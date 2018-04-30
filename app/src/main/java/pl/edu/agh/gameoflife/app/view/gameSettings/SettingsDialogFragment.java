@@ -1,5 +1,3 @@
-
-
 package pl.edu.agh.gameoflife.app.view.gameSettings;
 
 import android.os.Bundle;

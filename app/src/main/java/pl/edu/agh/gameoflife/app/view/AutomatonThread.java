@@ -282,7 +282,7 @@ class AutomatonThread extends Thread {
     }
 
     private void stepAutomaton() {
-        automaton.step();
+        automaton.step(params.getStepAnimation());
     }
 
     private void draw(Canvas canvas) {

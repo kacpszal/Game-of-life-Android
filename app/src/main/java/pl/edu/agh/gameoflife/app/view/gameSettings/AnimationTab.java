@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,6 +25,9 @@ public class AnimationTab extends Fragment {
     private TextView speedAnimationValue;
     private SeekBar stepAnimation;
     private TextView stepAnimationValue;
+    private Button apply;
+    private Button save;
+    private Button load;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,7 +35,32 @@ public class AnimationTab extends Fragment {
 
         setSpeedAnimation(view);
         setStepAnimation(view);
+        setButtons(view);
         return view;
+    }
+
+    private void setButtons(View view) {
+        apply = (Button) view.findViewById(R.id.apply);
+        save = (Button) view.findViewById(R.id.save);
+        load = (Button) view.findViewById(R.id.load);
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSpeedAnimationInGameParams();
+                setStepAnimationInGameParams();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
+
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
     }
 
     private void setSpeedAnimation(View view) {
@@ -70,6 +99,14 @@ public class AnimationTab extends Fragment {
 
         stepAnimationValue.setText(String.valueOf(gameManager.getParams().getStepAnimation()));
         stepAnimation.setProgress(gameManager.getParams().getStepAnimation() - 1);
+    }
+
+    private void setSpeedAnimationInGameParams() {
+        gameManager.getParams().setSpeedAnimation(Integer.parseInt(speedAnimationValue.getText().toString()));
+    }
+
+    private void setStepAnimationInGameParams() {
+        gameManager.getParams().setStepAnimation(Integer.parseInt(stepAnimationValue.getText().toString()));
     }
 
     public void setGameManager(GameManager gameManager) {

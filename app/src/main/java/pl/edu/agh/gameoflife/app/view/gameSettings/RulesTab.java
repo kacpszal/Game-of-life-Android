@@ -47,7 +47,6 @@ public class RulesTab extends Fragment {
         setCellRule(view);
         setSpecialCellRule(view);
         setNeighborhoodRadius(view);
-        setButtons(view);
         setWrapping(view);
         setStructure(view);
         setButtons(view);
