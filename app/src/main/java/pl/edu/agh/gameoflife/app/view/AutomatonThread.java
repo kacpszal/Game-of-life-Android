@@ -44,7 +44,7 @@ class AutomatonThread extends Thread {
     private final Context context;
     private final List<CellStateChange> cellStateChanges;
     private final int cellSizeInPixels;
-    private final int timeForAFrame;
+    private int timeForAFrame;
     private final CellColors cellColors;
     private final GameParams params;
     private boolean isRunning;
@@ -223,6 +223,7 @@ class AutomatonThread extends Thread {
 
     private void cycleCore(Canvas canvas) {
         handleFlags();
+        setTimeForAFrame();
 
         if (!paused) {
             stepAutomaton();
@@ -236,6 +237,10 @@ class AutomatonThread extends Thread {
         handleReset();
         handleRestart();
         resetFlags();
+    }
+
+    private void setTimeForAFrame() {
+        timeForAFrame = 1000 / params.getFps() / params.getSpeedAnimation();
     }
 
     private void handleReset() {
@@ -268,7 +273,7 @@ class AutomatonThread extends Thread {
     private void drawStructure() {
         if(structure != null) {
             try {
-                sleep(timeForAFrame);
+                sleep(1000 / params.getFps());
             } catch(InterruptedException e) {
                 e.printStackTrace();
             }
