@@ -52,5 +52,8 @@
     <!-- tab:animation -->
     <string name="animation_speed">Speed</string>
     <string name="animation_step">Step</string>
+    <string name="slower_faster_toggleButton">Slower or faster (speed)</string>
+    <string name="faster_toggleButton">Faster</string>
+    <string name="slower_toggleButton">Slower</string>
 
 </resources>

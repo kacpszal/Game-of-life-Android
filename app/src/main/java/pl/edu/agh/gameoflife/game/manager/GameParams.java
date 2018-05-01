@@ -29,6 +29,7 @@ public class GameParams {
     private float matrixTransY;
     private int speedAnimation = 1;
     private int stepAnimation = 1;
+    private boolean slowerFaster = true;
 
     private GameParams(Builder builder) {
         screenOrientation = builder.screenOrientation;
@@ -174,6 +175,14 @@ public class GameParams {
 
     public void setStepAnimation(int stepAnimation) {
         this.stepAnimation = stepAnimation;
+    }
+
+    public boolean getSlowerFaster() {
+        return slowerFaster;
+    }
+
+    public void setSlowerFaster(boolean slowerFaster) {
+        this.slowerFaster = slowerFaster;
     }
 
     public static final class Builder {

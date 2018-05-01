@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -23,6 +24,7 @@ public class AnimationTab extends Fragment {
 
     private SeekBar speedAnimation;
     private TextView speedAnimationValue;
+    private ToggleButton slowerFaster;
     private SeekBar stepAnimation;
     private TextView stepAnimationValue;
     private Button apply;
@@ -34,6 +36,7 @@ public class AnimationTab extends Fragment {
         View view = inflater.inflate(R.layout.animation_tab, container, false);
 
         setSpeedAnimation(view);
+        setSlowerFaster(view);
         setStepAnimation(view);
         setButtons(view);
         return view;
@@ -48,6 +51,7 @@ public class AnimationTab extends Fragment {
             @Override
             public void onClick(View v) {
                 setSpeedAnimationInGameParams();
+                setSlowerFasterInGameParams();
                 setStepAnimationInGameParams();
             }
         });
@@ -107,6 +111,15 @@ public class AnimationTab extends Fragment {
 
     private void setStepAnimationInGameParams() {
         gameManager.getParams().setStepAnimation(Integer.parseInt(stepAnimationValue.getText().toString()));
+    }
+
+    private void setSlowerFaster(View view) {
+        slowerFaster = (ToggleButton) view.findViewById(R.id.slowerFaster);
+        slowerFaster.setChecked(gameManager.getParams().getSlowerFaster());
+    }
+
+    private void setSlowerFasterInGameParams() {
+        gameManager.getParams().setSlowerFaster(slowerFaster.isChecked());
     }
 
     public void setGameManager(GameManager gameManager) {

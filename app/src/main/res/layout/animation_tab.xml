@@ -24,13 +24,27 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/slower_faster_toggleButton"
+        android:layout_marginTop="5dp"/>
+
+    <ToggleButton
+        android:id="@+id/slowerFaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:textOff="@string/slower_toggleButton"
+        android:textOn="@string/faster_toggleButton" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/animation_step"
         android:layout_marginTop="15dp"/>
     <SeekBar
         android:id="@+id/animationStep"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="4"
+        android:max="9"
         android:progress="0" />
     <TextView
         android:id="@+id/valueAnimationStep"

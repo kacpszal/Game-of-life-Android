@@ -240,7 +240,12 @@ class AutomatonThread extends Thread {
     }
 
     private void setTimeForAFrame() {
-        timeForAFrame = 1000 / params.getFps() / params.getSpeedAnimation();
+        timeForAFrame = 1000 / params.getFps();
+        if(params.getSlowerFaster()) {
+            timeForAFrame /= params.getSpeedAnimation();
+        } else {
+            timeForAFrame *= params.getSpeedAnimation();
+        }
     }
 
     private void handleReset() {
