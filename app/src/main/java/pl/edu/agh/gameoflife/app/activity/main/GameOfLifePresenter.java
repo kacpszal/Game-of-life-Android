@@ -19,7 +19,6 @@ import pl.edu.agh.gameoflife.game.cell.Cell;
 import pl.edu.agh.gameoflife.game.event.Draw;
 import pl.edu.agh.gameoflife.game.event.Pause;
 import pl.edu.agh.gameoflife.game.event.Reset;
-import pl.edu.agh.gameoflife.game.event.Restart;
 import pl.edu.agh.gameoflife.game.event.Resume;
 import pl.edu.agh.gameoflife.game.event.Zoom;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
@@ -131,10 +130,6 @@ public class GameOfLifePresenter {
     void onResetGame() {
         onPause();
         EventBus.getInstance().post(new Reset());
-    }
-
-    void onRestartGame() {
-        EventBus.getInstance().post(new Restart());
     }
 
     void onLoadGame() {

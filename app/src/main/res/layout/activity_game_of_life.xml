@@ -32,10 +32,6 @@
             style="@style/button"
             android:src="@drawable/ic_bin" />
 
-        <ImageButton
-            android:id="@+id/restart"
-            style="@style/button"
-            android:src="@drawable/ic_restart" />
 
         <ImageButton
             android:id="@+id/settings"

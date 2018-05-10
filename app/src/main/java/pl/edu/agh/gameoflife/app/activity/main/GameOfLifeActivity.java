@@ -110,11 +110,6 @@ public class GameOfLifeActivity extends FragmentActivity {
     }
 
     @Click
-    void restart() {
-        presenter.onRestartGame();
-    }
-
-    @Click
     void load() {
         presenter.onLoadGame();
     }

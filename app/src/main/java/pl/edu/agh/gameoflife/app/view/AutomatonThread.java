@@ -22,7 +22,6 @@ import pl.edu.agh.gameoflife.game.event.PaintStructureWithBrush;
 import pl.edu.agh.gameoflife.game.event.PaintWithBrush;
 import pl.edu.agh.gameoflife.game.event.Pause;
 import pl.edu.agh.gameoflife.game.event.Reset;
-import pl.edu.agh.gameoflife.game.event.Restart;
 import pl.edu.agh.gameoflife.game.event.Resume;
 import pl.edu.agh.gameoflife.game.event.Save;
 import pl.edu.agh.gameoflife.game.event.Zoom;
@@ -145,10 +144,6 @@ class AutomatonThread extends Thread {
                 GridToGridDao.parse(automaton.getCurrentState(), event.saveName));
     }
 
-    @Subscribe
-    synchronized public void onEvent(Restart event) {
-        shouldRestart = true;
-    }
 
   /*  @Subscribe
     synchronized public void onEvent(Load load) {
