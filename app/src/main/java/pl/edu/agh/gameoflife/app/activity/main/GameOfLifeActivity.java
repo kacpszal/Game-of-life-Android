@@ -38,7 +38,7 @@ public class GameOfLifeActivity extends FragmentActivity {
     AutomatonView automatonView;
 
     @ViewById
-    ImageButton zoom, draw, reset, restart, load, settings, pause, resume;
+    ImageButton zoom, draw, reset, load, settings, pause, resume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
