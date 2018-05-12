@@ -17,7 +17,17 @@ public class GridDao implements Comparable<GridDao> {
     int[][] cellsState;
     int sizeY;
     int sizeX;
+
     String saveText;
+    String rule;
+    String neighborhood;
+    int neighborhoodRadius;
+    Boolean wrapping;
+    String structures;
+    int speedAnimation;
+    int stepAnimation;
+    boolean slowerFaster;
+
     private String _id;
     private String _rev;
 

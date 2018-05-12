@@ -119,16 +119,16 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String saveString = saveName.getText().toString();
+                String name = saveName.getText().toString();
                 Boolean nameExists = false;
                 for (int k = 0; k < gridListView.getChildCount(); k++) {
-                    if (saveString.equals(gridsLoadedFromDatabase.get(k).getSaveText() )) { nameExists = true; }
+                    if (name.equals(gridsLoadedFromDatabase.get(k).getSaveText() )) { nameExists = true; }
                 }
 
                 if(nameExists){
                     Toast.makeText(getActivity().getApplicationContext(), "Name already exists!", Toast.LENGTH_LONG).show();
                 } else {
-                    EventBus.getInstance().post(new Save(saveString));
+                    EventBus.getInstance().post(new Save(name));
                     updateGridListView();
                 }
             }

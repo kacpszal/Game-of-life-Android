@@ -60,8 +60,6 @@ public class RulesTab extends Fragment {
 
     private void setButtons(View view) {
         apply = (Button) view.findViewById(R.id.apply);
-        save = (Button) view.findViewById(R.id.save);
-        load = (Button) view.findViewById(R.id.load);
 
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,16 +70,6 @@ public class RulesTab extends Fragment {
                 setNeighborhoodInGameParams();
                 setNeighborhoodRadiusInGameParams();
             }
-        });
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-
-        load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
         });
     }
 

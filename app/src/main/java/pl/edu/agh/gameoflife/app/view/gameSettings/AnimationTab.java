@@ -15,7 +15,6 @@ import org.androidannotations.annotations.EFragment;
 
 import pl.edu.agh.gameoflife.R;
 import pl.edu.agh.gameoflife.game.manager.GameManager;
-import pl.edu.agh.gameoflife.game.manager.GameParams;
 
 @EFragment
 public class AnimationTab extends Fragment {
@@ -44,8 +43,6 @@ public class AnimationTab extends Fragment {
 
     private void setButtons(View view) {
         apply = (Button) view.findViewById(R.id.apply);
-        save = (Button) view.findViewById(R.id.save);
-        load = (Button) view.findViewById(R.id.load);
 
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,16 +51,6 @@ public class AnimationTab extends Fragment {
                 setSlowerFasterInGameParams();
                 setStepAnimationInGameParams();
             }
-        });
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-
-        load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
         });
     }
 
