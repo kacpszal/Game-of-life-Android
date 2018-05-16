@@ -35,8 +35,6 @@ public class RulesTab extends Fragment {
     private ToggleButton wrapping;
     private Spinner structures;
     private Button apply;
-    private Button save;
-    private Button load;
 
 
     @Override

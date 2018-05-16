@@ -108,7 +108,7 @@ public class LoadGridDialogFragment extends DialogFragment implements AdapterVie
             @Override
             public void onClick(View view) {
                 if (focusedGrid != null) {
-                    gameManager.getAutomaton().fillFromGrid(GridDaoToGrid.parse(focusedGrid, gameManager.getParams()));
+                    gameManager.getAutomaton().fillFromGrid(GridDaoToGrid.parse(focusedGrid, gameManager));
 //                    dismiss();
                 }
             }

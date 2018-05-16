@@ -27,8 +27,6 @@ public class AnimationTab extends Fragment {
     private SeekBar stepAnimation;
     private TextView stepAnimationValue;
     private Button apply;
-    private Button save;
-    private Button load;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

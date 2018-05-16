@@ -22,7 +22,7 @@ public class GridDao implements Comparable<GridDao> {
     String rule;
     String neighborhood;
     int neighborhoodRadius;
-    Boolean wrapping;
+    boolean wrapping;
     String structures;
     int speedAnimation;
     int stepAnimation;
